@@ -1,0 +1,31 @@
+{
+  "short_name": "HomePage",
+  "name": "My Home Page",
+  "description": "Extension de Chrome para elaborar una pagina principal totalmente personalizada.",
+  "author": "Paul Goury Arnalot",
+  "manifest_version": 3,
+  "version": "0.1",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "My Home Page",
+    "default_icon": {
+      "16": "/images/home-page-logo-16.png",
+      "32": "/images/home-page-logo-32.png",
+      "48": "/images/home-page-logo-48.png",
+      "128": "/images/home-page-logo-128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/home-page-logo-16.png",
+    "32": "/images/home-page-logo-32.png",
+    "48": "/images/home-page-logo-48.png",
+    "128": "/images/home-page-logo-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
