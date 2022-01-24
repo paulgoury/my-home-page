@@ -1,11 +1,16 @@
+import { ThemeProvider } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import myTheme from "./myTheme.js";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={myTheme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
