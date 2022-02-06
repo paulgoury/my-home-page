@@ -36,6 +36,8 @@ function App() {
     console.log(response);
   };
 
+  console.log(process.env);
+
   return (
     <Box
       sx={{
@@ -136,7 +138,7 @@ function App() {
                   Registrarse
                 </Button>
                 <GoogleLogin
-                  clientId="817727470965-v7ds2dnthpitotqej59s87movg2g5u56.apps.googleusercontent.com"
+                  clientId={process.env.REACT_APP_APIAUTH}
                   render={(renderProps) => (
                     <Button
                       fullWidth
