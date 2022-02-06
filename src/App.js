@@ -1,111 +1,162 @@
-import { Button, Grid, Paper, TextField } from "@mui/material";
-import { Box, typography } from "@mui/system";
-import * as React from "react";
+import { VisibilityOff } from "@mui/icons-material";
+import Visibility from "@mui/icons-material/Visibility";
+import {
+  Button,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { useState } from "react";
+import { GoogleLogin } from "react-google-login";
 import "./app.css";
 
-// const themedStyles = (theme) => {
-//   console.log(theme);
-//   console.log("customColor:", theme.palette.primary.customColor);
-
-//   return {
-//     fieldSet: {
-//       borderColor: theme.palette.primary.main,
-//     },
-//   };
-// };
-
 function App() {
+  let [values, setValues] = useState({
+    showPassword: true,
+    isSignedIn: false,
+  });
+
+  const passwordIconOnClick = (event) => {
+    setValues({
+      ...values,
+      showPassword: values.showPassword
+        ? (values.showPassword = false)
+        : (values.showPassword = true),
+    });
+  };
+
+  const responseGoogle = (response) => {
+    setValues({
+      ...values,
+      isSignedIn: true,
+    });
+    console.log(response);
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "row",
-        m: 10,
+        p: 10,
+        height: "100%",
       }}
     >
-      {/* Left container */}
-      <Grid
-        sx={{ flexGrow: 1 }}
-        container
-        spacing={5}
-        direction="column"
-        justifyContent="center"
-        alignItems="left"
-      >
-        <Grid item>
-          <Grid item typography="h2">
-            Bienvenido a
-          </Grid>
-          <Grid item color="secondary.main" typography="h2">
-            My Home Page
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item xs={6}>
+          <Grid container direction="column" spacing={5}>
+            <Grid item>
+              <Grid container direction="column">
+                <Grid item typography="h2">
+                  Bienvenido a
+                </Grid>
+                <Grid item typography="h2" color="secondary.main">
+                  My Home Page
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>Descripcion...</Grid>
           </Grid>
         </Grid>
-        <Grid item>Descripcion...</Grid>
-      </Grid>
-      {/* Right Container */}
-      <Grid sx={{ flexGrow: 2 }} container>
-        <Paper
-          elevation={3}
-          sx={{ py: 5, px: 10, minWidth: "100%", minHeight: "100%" }}
-        >
-          <Grid
-            container
-            spacing={5}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+
+        <Grid item xs={6} sx={{ height: "100%" }}>
+          <Paper
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "100%",
+              borderRadius: "30px",
+              boxShadow:
+                "0px 6px 6px -3px rgb(0 0 0 / 20%), 0px 10px 14px 1px rgb(0 0 0 / 14%), 0px 4px 18px 3px rgb(0 0 0 / 12%)",
+            }}
           >
-            <Grid item typography="h4">
-              Iniciar sesión
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                spacing={3}
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Grid item>
-                  <TextField
-                    fullWidth
-                    label="Prueba"
-                    variant="outlined"
-                  ></TextField>
-                </Grid>
-                <Grid item>
-                  <TextField
-                    fullWidth
-                    label="Contraseña"
-                    variant="outlined"
-                  ></TextField>
-                </Grid>
-                <Grid item hidden>
-                  Correo o contraseña incorrectos.
-                </Grid>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              py={5}
+              px={5}
+              spacing={7}
+            >
+              <Grid item typography="h3">
+                Iniciar sesión
+              </Grid>
+              <Grid item>
+                <TextField
+                  fullWidth
+                  required
+                  label="Correo"
+                  variant="outlined"
+                />
+                <TextField
+                  fullWidth
+                  required
+                  label="Contraseña"
+                  variant="outlined"
+                  type={values.showPassword ? "password" : "text"}
+                  sx={{ marginTop: "30px" }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={passwordIconOnClick}>
+                          {values.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+                  sx={{ borderRadius: "10px" }}
+                >
+                  Iniciar sesión
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  sx={{ borderRadius: "10px" }}
+                >
+                  Registrarse
+                </Button>
+                <GoogleLogin
+                  clientId="817727470965-v7ds2dnthpitotqej59s87movg2g5u56.apps.googleusercontent.com"
+                  render={(renderProps) => (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      sx={{ marginTop: "30px", borderRadius: "10px" }}
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                    >
+                      Iniciar sesión con Google
+                    </Button>
+                  )}
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={"single_host_origin"}
+                />
               </Grid>
             </Grid>
-            <Grid item>
-              <Button variant="contained">Iniciar sesión</Button>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                spacing={3}
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Button variant="contained">Registrarse</Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained">Iniciar sesión con Google</Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        </Grid>
       </Grid>
     </Box>
   );
