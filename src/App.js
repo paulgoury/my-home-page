@@ -1,33 +1,22 @@
+import { VisibilityOff } from "@mui/icons-material";
+import Visibility from "@mui/icons-material/Visibility";
 import {
   Button,
-  Divider,
   Grid,
   IconButton,
   InputAdornment,
   Paper,
   TextField,
 } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import { GoogleLogin } from "react-google-login";
 import "./app.css";
-import { VisibilityOff } from "@mui/icons-material";
-import Visibility from "@mui/icons-material/Visibility";
-
-// const themedStyles = (theme) => {
-//   console.log(theme);
-//   console.log("customColor:", theme.palette.primary.customColor);
-
-//   return {
-//     fieldSet: {
-//       borderColor: theme.palette.primary.main,
-//     },
-//   };
-// };
 
 function App() {
   let [values, setValues] = useState({
     showPassword: true,
+    isSignedIn: false,
   });
 
   const passwordIconOnClick = (event) => {
@@ -37,6 +26,14 @@ function App() {
         ? (values.showPassword = false)
         : (values.showPassword = true),
     });
+  };
+
+  const responseGoogle = (response) => {
+    setValues({
+      ...values,
+      isSignedIn: true,
+    });
+    console.log(response);
   };
 
   return (
@@ -102,15 +99,16 @@ function App() {
                   required
                   label="Contraseña"
                   variant="outlined"
+                  type={values.showPassword ? "password" : "text"}
                   sx={{ marginTop: "30px" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton onClick={passwordIconOnClick}>
                           {values.showPassword ? (
-                            <Visibility />
-                          ) : (
                             <VisibilityOff />
+                          ) : (
+                            <Visibility />
                           )}
                         </IconButton>
                       </InputAdornment>
@@ -137,14 +135,24 @@ function App() {
                 >
                   Registrarse
                 </Button>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  size="large"
-                  sx={{ marginTop: "30px", borderRadius: "10px" }}
-                >
-                  Iniciar sesión con Google
-                </Button>
+                <GoogleLogin
+                  clientId="817727470965-v7ds2dnthpitotqej59s87movg2g5u56.apps.googleusercontent.com"
+                  render={(renderProps) => (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      sx={{ marginTop: "30px", borderRadius: "10px" }}
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                    >
+                      Iniciar sesión con Google
+                    </Button>
+                  )}
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={"single_host_origin"}
+                />
               </Grid>
             </Grid>
           </Paper>
