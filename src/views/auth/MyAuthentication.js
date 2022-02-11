@@ -1,7 +1,8 @@
 import { Grid, Paper } from "@mui/material";
-import MyAuthType from "./MyAuthType";
+import MyLogin from "./containers/MyLogin";
+import MyRegister from "./containers/MyRegister";
 
-const MyAuthentification = ({ isRegister }) => {
+const MyAuthentication = ({ isRegister }) => {
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item xs={6}>
@@ -29,12 +30,12 @@ const MyAuthentification = ({ isRegister }) => {
               "0px 6px 6px -3px rgb(0 0 0 / 20%), 0px 10px 14px 1px rgb(0 0 0 / 14%), 0px 4px 18px 3px rgb(0 0 0 / 12%)",
           }}
         >
-          {isRegister && <MyAuthType isRegister />}
-          {!isRegister && <MyAuthType />}
+          {isRegister && <MyRegister />}
+          {!isRegister && <MyLogin />}
         </Paper>
       </Grid>
     </Grid>
   );
 };
 
-export default MyAuthentification;
+export default MyAuthentication;

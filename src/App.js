@@ -1,24 +1,20 @@
-import Login from "./views/auth/Login";
 import { Box } from "@mui/system";
-import "./app.css";
-import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
 import {
-  FirestoreProvider,
-  useFirebaseApp,
   AuthProvider,
   DatabaseProvider,
+  FirestoreProvider,
+  useFirebaseApp,
 } from "reactfire";
-import { getFirestore } from "firebase/firestore";
-import Register from "./views/auth/Register";
+import { getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
+
+import "./app.css";
+import MyAuthentication from "./views/auth/MyAuthentication";
 
 function App() {
   const app = useFirebaseApp();
   const dataBase = getDatabase(app);
   const auth = getAuth(app);
-
-  // Remove?
-  const fireStoreInstance = getFirestore(useFirebaseApp());
 
   return (
     <Box
@@ -32,7 +28,7 @@ function App() {
       <FirestoreProvider sdk={fireStoreInstance}>
         <AuthProvider sdk={auth}>
           <DatabaseProvider sdk={dataBase}>
-            <Register />
+            <MyAuthentication />
           </DatabaseProvider>
         </AuthProvider>
       </FirestoreProvider>

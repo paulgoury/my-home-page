@@ -8,7 +8,7 @@ const MyTextField = ({
   error,
   onKeyUpEnter,
   iconOnClick,
-  showPassword,
+  passwordMode,
 }) => {
   return (
     <TextField
@@ -17,7 +17,7 @@ const MyTextField = ({
       label={label}
       variant="outlined"
       onChange={onChange}
-      type={isRegister && (showPassword ? "password" : "text")}
+      type={isRegister && (passwordMode ? "password" : "text")}
       error={!error}
       helperText={
         isRegister && (!error ? "Correo o contraseña incorrectos" : "")
@@ -28,7 +28,7 @@ const MyTextField = ({
           endAdornment: (
             <InputAdornment position="end">
               <IconButton onClick={iconOnClick}>
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {passwordMode ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           ),

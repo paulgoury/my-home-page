@@ -1,9 +1,13 @@
-import { Button, Grid } from "@mui/material";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import MyTextField from "./auth/loginRegister/MyTextField";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Grid } from "@mui/material";
 
-const MyAuthType = ({ title, isRegister }) => {
+import MyWrapper from "./auth/components/MyWrapper";
+import MyTitle from "./auth/components/MyTitle";
+import MyTextField from "./auth/components/MyTextField";
+import MyButton from "./auth/components/MyButton";
+
+const MyRegister = () => {
   const [values, setValues] = useState({
     showPassword: true,
     correctCredentils: " ",
@@ -66,15 +70,8 @@ const MyAuthType = ({ title, isRegister }) => {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Grid item typography="h3" mb={7}>
-        {title}
-      </Grid>
+    <MyWrapper>
+      <MyTitle mb={7}>Registrarse</MyTitle>
 
       <Grid item mb={2} width="50%">
         <MyTextField
@@ -91,45 +88,30 @@ const MyAuthType = ({ title, isRegister }) => {
           error={values.correctCredentils}
           onKeyUpEnter={onKeyUpEnter}
           iconOnClick={passwordIconOnClick}
-          showPassword={values.showPassword}
+          passwordMode={values.showPassword}
+        />
+      </Grid>
+    
+      <Grid item mb={2} width="50%">
+        <MyTextField
+          label={"Contraseña"}
+          onChange={passwordOnChange}
+          error={values.correctCredentils}
+          onKeyUpEnter={onKeyUpEnter}
+          iconOnClick={passwordIconOnClick}
+          passwordMode={values.showPassword}
         />
       </Grid>
 
-      {isRegister && (
-        <Grid item mb={2} width="50%">
-          <MyTextField
-            label={"Contraseña"}
-            onChange={passwordOnChange}
-            error={values.correctCredentils}
-            onKeyUpEnter={onKeyUpEnter}
-            iconOnClick={passwordIconOnClick}
-            showPassword={values.showPassword}
-          />
-        </Grid>
-      )}
-
-      <Grid item fontSize={13} mb={2}>
-        Has olvidado la contraseña ? <u>Recuperar</u>
-      </Grid>
-
       <Grid item mb={7} width="50%">
-        <Button
-          fullWidth
-          variant="contained"
-          size="large"
-          color="secondary"
-          sx={{ borderRadius: "10px" }}
-          onClick={loginOnClick}
-        >
-          Iniciar sesión
-        </Button>
+        <MyButton color={secondary} onClick={}>Registrarse</MyButton>
       </Grid>
 
       <Grid item fontSize={13} mb={2}>
-        No tienes cuenta ? <u>Registrarse</u>
+        Ya tienes cuenta ? <u>Iniciar sesión</u>
       </Grid>
-    </Grid>
+    </MyWrapper>
   );
 };
 
-export default MyAuthType;
+export default MyRegister;

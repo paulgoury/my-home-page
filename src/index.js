@@ -1,8 +1,9 @@
-import { ThemeProvider } from "@emotion/react";
-import { CssBaseline } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom";
 import { FirebaseAppProvider } from "reactfire";
+import { ThemeProvider } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
+
 import App from "./App";
 import myTheme from "./styles/myTheme.js";
 
