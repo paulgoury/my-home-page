@@ -1,4 +1,4 @@
-import Login from "./views/login/Login";
+import Login from "./views/auth/Login";
 import { Box } from "@mui/system";
 import "./app.css";
 import { getAuth } from "firebase/auth";
@@ -10,6 +10,7 @@ import {
   DatabaseProvider,
 } from "reactfire";
 import { getFirestore } from "firebase/firestore";
+import Register from "./views/auth/Register";
 
 function App() {
   const app = useFirebaseApp();
@@ -31,7 +32,7 @@ function App() {
       <FirestoreProvider sdk={fireStoreInstance}>
         <AuthProvider sdk={auth}>
           <DatabaseProvider sdk={dataBase}>
-            <Login />
+            <Register />
           </DatabaseProvider>
         </AuthProvider>
       </FirestoreProvider>

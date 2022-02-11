@@ -9,34 +9,42 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { GoogleLogin } from "react-google-login";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 const Login = () => {
   const [values, setValues] = useState({
     showPassword: true,
-    isSignedIn: false,
+    correctCredentils: " ",
   });
-
-  const passwordIconOnClick = (event) => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-
-  const responseGoogle = (response) => {
-    setValues({
-      ...values,
-      isSignedIn: true,
-    });
-    console.log(response);
-  };
 
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+
+  const auth = getAuth();
+
+  const provider = new GoogleAuthProvider();
+
+  const googleLoginButtonOnClick = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, provider).then(
+        (result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accesToken;
+          const user = result.user;
+        }
+      );
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.messae;
+    }
+  };
 
   const emailOnChange = (e) => {
     setCredentials({
@@ -52,35 +60,49 @@ const Login = () => {
     });
   };
 
-  const auth = getAuth();
-
-  const loginOnClick = () => {
-    console.log("email " + credentials.email);
-    console.log("pass " + credentials.password);
-    signInWithEmailAndPassword(auth, credentials.email, credentials.password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log(userCredentials);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.messae;
-        console.log(error);
+  const loginOnClick = async () => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        credentials.email,
+        credentials.password
+      );
+      const user = userCredentials.user;
+      setValues({
+        ...values,
+        correctCredentils: true,
       });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.messae;
+      setValues({
+        ...values,
+        correctCredentils: false,
+      });
+    }
+  };
+
+  const passwordIconOnClick = (event) => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const onKeyUpEnter = (event) => {
+    if (event.key === "Enter") {
+      loginOnClick();
+    }
   };
 
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item xs={6}>
-        <Grid container direction="column" spacing={5}>
-          <Grid item>
-            <Grid container direction="column">
-              <Grid item typography="h2">
-                Bienvenido a
-              </Grid>
-              <Grid item typography="h2" color="secondary.main">
-                My Home Page
-              </Grid>
+        <Grid container direction="column" justifyContent="center" spacing={5}>
+          <Grid item typography="h4">
+            <Grid item>Bienvenido a </Grid>
+            <Grid item color="secondary.main">
+              My Home Page
             </Grid>
           </Grid>
           <Grid item>Descripcion...</Grid>
@@ -105,28 +127,46 @@ const Login = () => {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            py={5}
-            px={5}
-            spacing={7}
           >
-            <Grid item typography="h3">
+            <Grid item mb={7} typography="h3">
               Iniciar sesión
             </Grid>
-            <Grid item>
+            <Grid item width="50%" mb={7}>
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                sx={{ borderRadius: "10px" }}
+                onClick={googleLoginButtonOnClick}
+              >
+                Iniciar sesión con google
+              </Button>
+            </Grid>
+            <Grid item mb={2} width="50%">
               <TextField
                 fullWidth
                 required
                 label="Correo"
                 variant="outlined"
                 onChange={emailOnChange}
+                error={!values.correctCredentils}
               />
+            </Grid>
+            <Grid item mb={2} width="50%">
               <TextField
                 fullWidth
                 required
                 label="Contraseña"
                 variant="outlined"
+                onChange={passwordOnChange}
                 type={values.showPassword ? "password" : "text"}
-                sx={{ marginTop: "30px" }}
+                error={!values.correctCredentils}
+                helperText={
+                  !values.correctCredentils
+                    ? "Correo o contraseña incorrectos"
+                    : ""
+                }
+                onKeyUp={onKeyUpEnter}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -140,11 +180,14 @@ const Login = () => {
                     </InputAdornment>
                   ),
                 }}
-                onChange={passwordOnChange}
               />
             </Grid>
-            <Grid item>
+            <Grid item fontSize={13} mb={2}>
+              Has olvidado la contraseña ? <u>Recuperar</u>
+            </Grid>
+            <Grid item mb={7} width="50%">
               <Button
+                fullWidth
                 variant="contained"
                 size="large"
                 color="secondary"
@@ -154,33 +197,8 @@ const Login = () => {
                 Iniciar sesión
               </Button>
             </Grid>
-            <Grid item>
-              <Button
-                fullWidth
-                variant="contained"
-                size="large"
-                sx={{ borderRadius: "10px" }}
-              >
-                Registrarse
-              </Button>
-              <GoogleLogin
-                clientId={process.env.REACT_APP_APIAUTH}
-                render={(renderProps) => (
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    sx={{ marginTop: "30px", borderRadius: "10px" }}
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
-                  >
-                    Iniciar sesión con Google
-                  </Button>
-                )}
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={"single_host_origin"}
-              />
+            <Grid item fontSize={13} mb={2}>
+              No tienes cuenta ? <u>Registrarse</u>
             </Grid>
           </Grid>
         </Paper>
