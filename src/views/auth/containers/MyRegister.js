@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import MyWrapper from "../components/MyWrapper";
 import MyTitle from "../components/MyTitle";
@@ -111,7 +112,10 @@ const MyRegister = () => {
       </Grid>
 
       <Grid item fontSize={13} mb={2}>
-        Ya tienes cuenta ? <u>Iniciar sesión</u>
+        Ya tienes cuenta ?{" "}
+        <Link to="/myLogin">
+          <u>Iniciar sesión</u>
+        </Link>
       </Grid>
     </MyWrapper>
   );

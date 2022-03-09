@@ -6,13 +6,12 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { Button, Grid } from "@mui/material";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import MyWrapper from "../components/MyWrapper";
 import MyTitle from "../components/MyTitle";
 import MyTextField from "../components/MyTextField";
 import MyButton from "../components/MyButton";
-import MyRegister from "./MyRegister";
 
 const MyLogin = () => {
   const [values, setValues] = useState({
@@ -146,17 +145,10 @@ const MyLogin = () => {
       </Grid>
       <Grid item fontSize={13} mb={2}>
         No tienes cuenta ?{" "}
-        <u>
-          <Link to="../containers/MyRegister.js">Registrarse</Link>
-        </u>
+        <Link to="/myRegister">
+          <u>Registrarse</u>
+        </Link>
       </Grid>
-      <Routes>
-        <Route
-          exact
-          path="../containers/MyRegister.js"
-          component={MyRegister}
-        />
-      </Routes>
     </MyWrapper>
   );
 };
