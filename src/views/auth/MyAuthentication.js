@@ -37,7 +37,7 @@ const MyAuthentication = ({ isRegister }) => {
               <Route
                 path="/"
                 element={
-                  (!isRegister && <MyLogin />) || (isRegister && <MyRegister />)
+                  isRegister  ? <MyLogin /> : <MyRegister />
                 }
               />
               <Route path="/myLogin" element={<MyLogin />} />
