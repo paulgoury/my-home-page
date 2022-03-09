@@ -1,4 +1,6 @@
 import { Grid, Paper } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import MyLogin from "./containers/MyLogin";
 import MyRegister from "./containers/MyRegister";
 
@@ -30,8 +32,18 @@ const MyAuthentication = ({ isRegister }) => {
               "0px 6px 6px -3px rgb(0 0 0 / 20%), 0px 10px 14px 1px rgb(0 0 0 / 14%), 0px 4px 18px 3px rgb(0 0 0 / 12%)",
           }}
         >
-          {isRegister && <MyRegister />}
-          {!isRegister && <MyLogin />}
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  (!isRegister && <MyLogin />) || (isRegister && <MyRegister />)
+                }
+              />
+              <Route path="/myLogin" element={<MyLogin />} />
+              <Route path="/myRegister" element={<MyRegister />} />
+            </Routes>
+          </BrowserRouter>
         </Paper>
       </Grid>
     </Grid>
