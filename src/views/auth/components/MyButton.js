@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const MyButton = ({ color, onClick, value }) => {
+const MyButton = ({ color, onClick, children }) => {
   return (
     <Button
       fullWidth
@@ -10,7 +10,7 @@ const MyButton = ({ color, onClick, value }) => {
       sx={{ borderRadius: "10px" }}
       onClick={onClick}
     >
-      {value}
+      {children}
     </Button>
   );
 };

@@ -1,7 +1,9 @@
-const MyTitle = ({ mb, value }) => {
+import { Grid } from "@mui/material";
+
+const MyTitle = ({ mb, children }) => {
   return (
     <Grid item mb={mb} typography="h3">
-      {value}
+      {children}
     </Grid>
   );
 };

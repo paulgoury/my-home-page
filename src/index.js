@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { FirebaseAppProvider } from "reactfire";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import myTheme from "./styles/myTheme.js";
@@ -20,8 +21,10 @@ ReactDOM.render(
   <React.StrictMode>
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
       <ThemeProvider theme={myTheme}>
-        <CssBaseline />
-        <App />
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </FirebaseAppProvider>
   </React.StrictMode>,

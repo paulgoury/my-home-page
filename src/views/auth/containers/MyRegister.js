@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Grid } from "@mui/material";
 
-import MyWrapper from "./auth/components/MyWrapper";
-import MyTitle from "./auth/components/MyTitle";
-import MyTextField from "./auth/components/MyTextField";
-import MyButton from "./auth/components/MyButton";
+import MyWrapper from "../components/MyWrapper";
+import MyTitle from "../components/MyTitle";
+import MyTextField from "../components/MyTextField";
+import MyButton from "../components/MyButton";
 
 const MyRegister = () => {
   const [values, setValues] = useState({
@@ -17,8 +17,6 @@ const MyRegister = () => {
     email: "",
     password: "",
   });
-
-  const auth = getAuth();
 
   const emailOnChange = (e) => {
     setCredentials({
@@ -34,9 +32,10 @@ const MyRegister = () => {
     });
   };
 
-  const loginOnClick = async () => {
+  const auth = getAuth();
+  const registerOnClick = async () => {
     try {
-      const userCredentials = await signInWithEmailAndPassword(
+      const userCredentials = await createUserWithEmailAndPassword(
         auth,
         credentials.email,
         credentials.password
@@ -65,7 +64,7 @@ const MyRegister = () => {
 
   const onKeyUpEnter = (event) => {
     if (event.key === "Enter") {
-      loginOnClick();
+      registerOnClick();
     }
   };
 
@@ -83,6 +82,7 @@ const MyRegister = () => {
 
       <Grid item mb={2} width="50%">
         <MyTextField
+          isPassword
           label={"Contraseña"}
           onChange={passwordOnChange}
           error={values.correctCredentils}
@@ -91,9 +91,10 @@ const MyRegister = () => {
           passwordMode={values.showPassword}
         />
       </Grid>
-    
+
       <Grid item mb={2} width="50%">
         <MyTextField
+          isPassword
           label={"Contraseña"}
           onChange={passwordOnChange}
           error={values.correctCredentils}
@@ -104,7 +105,9 @@ const MyRegister = () => {
       </Grid>
 
       <Grid item mb={7} width="50%">
-        <MyButton color={secondary} onClick={}>Registrarse</MyButton>
+        <MyButton color={"secondary"} onClick={registerOnClick}>
+          Registrarse
+        </MyButton>
       </Grid>
 
       <Grid item fontSize={13} mb={2}>

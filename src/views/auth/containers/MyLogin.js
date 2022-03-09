@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { Button, Grid } from "@mui/material";
+import { Routes, Route, Link } from "react-router-dom";
 
-import MyWrapper from "./auth/components/MyWrapper";
-import MyTitle from "./auth/components/MyTitle";
-import MyTextField from "./auth/components/MyTextField";
-import MyButton from "./auth/components/MyButton";
+import MyWrapper from "../components/MyWrapper";
+import MyTitle from "../components/MyTitle";
+import MyTextField from "../components/MyTextField";
+import MyButton from "../components/MyButton";
+import MyRegister from "./MyRegister";
 
 const MyLogin = () => {
   const [values, setValues] = useState({
@@ -18,23 +25,41 @@ const MyLogin = () => {
     password: "",
   });
 
+  const emailOnChange = (event) => {
+    setCredentials({
+      ...credentials,
+      email: event.target.value,
+    });
+  };
+
+  const passwordOnChange = (event) => {
+    setCredentials({
+      ...credentials,
+      password: event.target.value,
+    });
+  };
+
   const auth = getAuth();
 
-  const emailOnChange = (e) => {
-    setCredentials({
-      ...credentials,
-      email: e.target.value,
-    });
+  const provider = new GoogleAuthProvider();
+  const loginWithGoogleOnClick = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, provider);
+      const credential =
+        GoogleAuthProvider.credentialFromResult(userCredentials);
+      const token = credential.accessToken;
+      const user = userCredentials.user;
+      console.log("TAENTRO");
+    } catch (error) {
+      console.log("NO TAENTRO");
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    }
   };
 
-  const passwordOnChange = (e) => {
-    setCredentials({
-      ...credentials,
-      password: e.target.value,
-    });
-  };
-
-  const loginOnClick = async () => {
+  const loginWithEmailAndPasswordOnClick = async () => {
     try {
       const userCredentials = await signInWithEmailAndPassword(
         auth,
@@ -42,12 +67,14 @@ const MyLogin = () => {
         credentials.password
       );
       const user = userCredentials.user;
+      console.log("TAENTRO");
       setValues({
         ...values,
         correctCredentils: true,
       });
     } catch (error) {
       const errorCode = error.code;
+      console.log("NO TAENTRO");
       const errorMessage = error.messae;
       setValues({
         ...values,
@@ -56,7 +83,7 @@ const MyLogin = () => {
     }
   };
 
-  const passwordIconOnClick = (event) => {
+  const passwordIconOnClick = () => {
     setValues({
       ...values,
       showPassword: !values.showPassword,
@@ -65,7 +92,7 @@ const MyLogin = () => {
 
   const onKeyUpEnter = (event) => {
     if (event.key === "Enter") {
-      loginOnClick();
+      loginWithEmailAndPasswordOnClick();
     }
   };
 
@@ -79,7 +106,7 @@ const MyLogin = () => {
           variant="contained"
           size="large"
           sx={{ borderRadius: "10px" }}
-          onClick={googleLoginButtonOnClick}
+          onClick={loginWithGoogleOnClick}
         >
           Iniciar sesión con google
         </Button>
@@ -95,6 +122,7 @@ const MyLogin = () => {
 
       <Grid item mb={2} width="50%">
         <MyTextField
+          isPassword
           label={"Contraseña"}
           onChange={passwordOnChange}
           error={values.correctCredentils}
@@ -109,13 +137,26 @@ const MyLogin = () => {
       </Grid>
 
       <Grid item mb={7} width="50%">
-        <MyButton color={secondary} onClick={loginOnClick}>
+        <MyButton
+          color={"secondary"}
+          onClick={loginWithEmailAndPasswordOnClick}
+        >
           Iniciar sesión
         </MyButton>
       </Grid>
       <Grid item fontSize={13} mb={2}>
-        No tienes cuenta ? <u>Registrarse</u>
+        No tienes cuenta ?{" "}
+        <u>
+          <Link to="../containers/MyRegister.js">Registrarse</Link>
+        </u>
       </Grid>
+      <Routes>
+        <Route
+          exact
+          path="../containers/MyRegister.js"
+          component={MyRegister}
+        />
+      </Routes>
     </MyWrapper>
   );
 };

@@ -2,7 +2,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 
 const MyTextField = ({
-  isRegister,
+  isPassword,
   label,
   onChange,
   error,
@@ -17,14 +17,14 @@ const MyTextField = ({
       label={label}
       variant="outlined"
       onChange={onChange}
-      type={isRegister && (passwordMode ? "password" : "text")}
+      type={isPassword && (passwordMode ? "password" : "text")}
       error={!error}
       helperText={
-        isRegister && (!error ? "Correo o contraseña incorrectos" : "")
+        isPassword && (!error ? "Correo o contraseña incorrectos" : "")
       }
-      onKeyUp={isRegister && onKeyUpEnter}
+      onKeyUp={isPassword && onKeyUpEnter}
       InputProps={
-        isRegister && {
+        isPassword && {
           endAdornment: (
             <InputAdornment position="end">
               <IconButton onClick={iconOnClick}>
