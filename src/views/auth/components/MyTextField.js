@@ -6,6 +6,7 @@ const MyTextField = ({
   label,
   onChange,
   error,
+  showHelperText,
   onKeyUpEnter,
   iconOnClick,
   passwordMode,
@@ -18,9 +19,15 @@ const MyTextField = ({
       variant="outlined"
       onChange={onChange}
       type={isPassword && (passwordMode ? "password" : "text")}
-      error={!error}
+      error={error === 0 ? false : true}
       helperText={
-        isPassword && (!error ? "Correo o contraseña incorrectos" : "")
+        showHelperText &&
+        isPassword &&
+        (error === 1
+          ? "Correo o contraseña incorrectos"
+          : error === 2
+          ? "Las contraseñas no coinciden"
+          : "")
       }
       onKeyUp={isPassword && onKeyUpEnter}
       InputProps={
