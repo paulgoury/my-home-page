@@ -11,47 +11,66 @@ import MyButton from "../components/MyButton";
 const MyRegister = () => {
   const [values, setValues] = useState({
     showPassword: true,
-    correctCredentils: " ",
+    correctCredentils: 0,
   });
 
   const [credentials, setCredentials] = useState({
     email: "",
-    password: "",
+    firstPassword: "",
+    secondPassword: "",
   });
 
-  const emailOnChange = (e) => {
+  const emailOnChange = (event) => {
     setCredentials({
       ...credentials,
-      email: e.target.value,
+      email: event.target.value,
     });
   };
 
-  const passwordOnChange = (e) => {
+  const firstPasswordOnChange = (event) => {
     setCredentials({
       ...credentials,
-      password: e.target.value,
+      firstPassword: event.target.value,
     });
+  };
+
+  const secondPasswordOnChange = (event) => {
+    setCredentials({
+      ...credentials,
+      secondPassword: event.target.value,
+    });
+  };
+
+  const passwordsEquals = () => {
+    console.log(credentials.firstPassword);
+    console.log(credentials.secondPassword);
+    return credentials.firstPassword === credentials.secondPassword;
   };
 
   const auth = getAuth();
   const registerOnClick = async () => {
-    try {
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        credentials.email,
-        credentials.password
-      );
-      const user = userCredentials.user;
+    console.log(credentials.firstPassword);
+    console.log(credentials.secondPassword);
+    if (credentials.firstPassword === credentials.secondPassword) {
+      try {
+        const userCredentials = await createUserWithEmailAndPassword(
+          auth,
+          credentials.email,
+          credentials.firstPassword
+        );
+        const user = userCredentials.user;
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setValues({
+          ...values,
+          correctCredentils: 1,
+        });
+      }
+    } else {
       setValues({
         ...values,
-        correctCredentils: true,
-      });
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.messae;
-      setValues({
-        ...values,
-        correctCredentils: false,
+        correctCredentils: 2,
       });
     }
   };
@@ -85,7 +104,7 @@ const MyRegister = () => {
         <MyTextField
           isPassword
           label={"Contraseña"}
-          onChange={passwordOnChange}
+          onChange={firstPasswordOnChange}
           error={values.correctCredentils}
           onKeyUpEnter={onKeyUpEnter}
           iconOnClick={passwordIconOnClick}
@@ -97,8 +116,9 @@ const MyRegister = () => {
         <MyTextField
           isPassword
           label={"Contraseña"}
-          onChange={passwordOnChange}
+          onChange={secondPasswordOnChange}
           error={values.correctCredentils}
+          showHelperText
           onKeyUpEnter={onKeyUpEnter}
           iconOnClick={passwordIconOnClick}
           passwordMode={values.showPassword}

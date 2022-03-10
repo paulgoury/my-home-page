@@ -16,7 +16,7 @@ import MyButton from "../components/MyButton";
 const MyLogin = () => {
   const [values, setValues] = useState({
     showPassword: true,
-    correctCredentils: " ",
+    correctCredentils: 0,
   });
 
   const [credentials, setCredentials] = useState({
@@ -48,13 +48,15 @@ const MyLogin = () => {
         GoogleAuthProvider.credentialFromResult(userCredentials);
       const token = credential.accessToken;
       const user = userCredentials.user;
-      console.log("TAENTRO");
     } catch (error) {
-      console.log("NO TAENTRO");
       const errorCode = error.code;
       const errorMessage = error.message;
       const email = error.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
+      setValues({
+        ...values,
+        correctCredentils: 1,
+      });
     }
   };
 
@@ -66,18 +68,12 @@ const MyLogin = () => {
         credentials.password
       );
       const user = userCredentials.user;
-      console.log("TAENTRO");
-      setValues({
-        ...values,
-        correctCredentils: true,
-      });
     } catch (error) {
       const errorCode = error.code;
-      console.log("NO TAENTRO");
-      const errorMessage = error.messae;
+      const errorMessage = error.message;
       setValues({
         ...values,
-        correctCredentils: false,
+        correctCredentils: 1,
       });
     }
   };
@@ -125,6 +121,7 @@ const MyLogin = () => {
           label={"Contraseña"}
           onChange={passwordOnChange}
           error={values.correctCredentils}
+          showHelperText
           onKeyUpEnter={onKeyUpEnter}
           iconOnClick={passwordIconOnClick}
           passwordMode={values.showPassword}
