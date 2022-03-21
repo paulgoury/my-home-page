@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
 import { pink, teal } from "@mui/material/colors";
 
-export const myTheme = createTheme({
+const myTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
@@ -22,3 +22,5 @@ export const myTheme = createTheme({
     fontFamily: "Montserrat",
   },
 });
+
+export default myTheme;

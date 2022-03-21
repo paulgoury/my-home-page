@@ -1,6 +1,7 @@
-import { Grid, TextField } from "@mui/material";
+import { Grid } from "@mui/material";
 import React from "react";
 import Background from "./components/Background";
+import SearchTextField from "./components/SearchTextField";
 
 const HomePage = () => {
   const backgroundPicture = () => {
@@ -10,7 +11,7 @@ const HomePage = () => {
   return (
     <Background backgroundPicture={backgroundPicture()}>
       <Grid container alignContent="center" justifyContent="center">
-        <TextField variant="outlined" sx={} />
+        <SearchTextField />
       </Grid>
     </Background>
   );

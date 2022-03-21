@@ -1,15 +1,22 @@
-import styled from "@emotion/styled";
+import { alpha, styled } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import mySimpleThemeDark from "../../../styles/mySimpleThemeDark";
 
 const SearchTextField = () => {
-  const styledTextField = styled("input")(({ theme }) => ({
-      '& .MuiInputBase-input': {
-          borderRadius: 4,
-          position: "relative",
-          backgroundColor: theme.palette.mode === "dark" ? "theme.palette."
-      }
+  const RedditTextField = styled((props) => (
+    <TextField InputProps={{ disableUnderline: true }} {...props} />
+  ))(({ theme }) => ({
+    "& .MuiFilledInput-root": {
+      overflow: "hidden",
+      borderRadius: 4,
+      backgroundColor: mySimpleThemeDark.palette.background.default,
+    },
   }));
 
-  return;
+  const inputProps = {};
+
+  return <TextField inputProps={inputProps} />;
+  // <RedditTextField variant="filled" style={{ marginTop: 11 }} />
 };
 
 export default SearchTextField;
