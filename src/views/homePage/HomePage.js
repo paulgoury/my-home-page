@@ -1,18 +1,16 @@
-import { Grid } from "@mui/material";
 import React from "react";
 import Background from "./components/Background";
-import SearchTextField from "./components/SearchTextField";
+import Main from "./layout/Main";
 
 const HomePage = () => {
   const backgroundPicture = () => {
-    return "https://source.unsplash.com/random/1920x1080";
+    return "";
+    // https://source.unsplash.com/random/1920x1080
   };
 
   return (
     <Background backgroundPicture={backgroundPicture()}>
-      <Grid container alignContent="center" justifyContent="center">
-        <SearchTextField />
-      </Grid>
+      <Main />
     </Background>
   );
 };

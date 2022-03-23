@@ -9,7 +9,7 @@ const SearchTextField = () => {
     "& .MuiFilledInput-root": {
       overflow: "hidden",
       borderRadius: 4,
-      backgroundColor: mySimpleThemeDark.palette.background.default,
+      backgroundColor: "red",
     },
   }));
 
