@@ -12,8 +12,7 @@ function App() {
       sx={{
         display: "flex",
         flexDirection: "row",
-        // p: 10,
-        height: "100%",
+        height: "100vh",
       }}
     >
       {/* <MyAuthentication /> */}
