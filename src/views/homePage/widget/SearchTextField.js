@@ -1,8 +1,7 @@
-import { alpha, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
-import mySimpleThemeDark from "../../../styles/mySimpleThemeDark";
 
-const SearchTextField = () => {
+const SearchTextField = ({ key }) => {
   const RedditTextField = styled((props) => (
     <TextField InputProps={{ disableUnderline: true }} {...props} />
   ))(({ theme }) => ({
@@ -13,10 +12,7 @@ const SearchTextField = () => {
     },
   }));
 
-  const inputProps = {};
-
-  return <TextField inputProps={inputProps} />;
-  // <RedditTextField variant="filled" style={{ marginTop: 11 }} />
+  return <RedditTextField key={key} />;
 };
 
 export default SearchTextField;

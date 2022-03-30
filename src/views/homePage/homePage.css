@@ -4,6 +4,6 @@ body {
   overflow-x: hidden;
 }
 
-.gridLayoutProvider {
+.grid-container {
   height: 100vh;
 }
