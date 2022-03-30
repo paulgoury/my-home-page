@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Background from "./components/Background";
-import MainGrid from "./layout/MainGrid";
+import MyBackground from "./components/MyBackground";
+import MainGrid from "./containers/MainGrid";
 import "./homePage.css";
-import WidgetsMenu from "./layout/WidgetsMenu";
+import WidgetsMenu from "./containers/WidgetsMenu";
 import MyContext from "./tools/MyContext";
 
 const HomePage = () => {
@@ -14,12 +14,12 @@ const HomePage = () => {
   };
 
   return (
-    <Background backgroundPicture={backgroundPicture()}>
+    <MyBackground backgroundPicture={backgroundPicture()}>
       <MyContext.Provider value={{ edit, setEdit }}>
         <MainGrid />
         <WidgetsMenu />
       </MyContext.Provider>
-    </Background>
+    </MyBackground>
   );
 };
 

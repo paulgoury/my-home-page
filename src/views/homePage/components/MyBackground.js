@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 
-const Background = ({ backgroundPicture, children }) => {
+const MyBackground = ({ backgroundPicture, children }) => {
   return (
     <Box
       sx={{
@@ -14,4 +14,4 @@ const Background = ({ backgroundPicture, children }) => {
   );
 };
 
-export default Background;
+export default MyBackground;

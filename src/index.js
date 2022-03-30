@@ -5,7 +5,7 @@ import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 
 import App from "./App";
-import myTheme from "./styles/myTheme.js";
+import myTheme from "./palettes/myTheme.js";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
