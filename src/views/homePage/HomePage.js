@@ -1,24 +1,18 @@
-import React, { useState } from "react";
 import MyBackground from "./components/MyBackground";
-import MainGrid from "./containers/MainGrid";
+import SettingsContextProvider from "./tools/Context/SettingsContextProvider";
+
+import MainGrid from "./containers/MainGrid/MainGrid";
+import WidgetsMenu from "./containers/WidgetsMenu/WidgetsMenu";
+
 import "./homePage.css";
-import WidgetsMenu from "./containers/WidgetsMenu";
-import MyContext from "./tools/MyContext";
 
 const HomePage = () => {
-  const [edit, setEdit] = useState();
-
-  const backgroundPicture = () => {
-    return "";
-    // https://source.unsplash.com/random/1920x1080
-  };
-
   return (
-    <MyBackground backgroundPicture={backgroundPicture()}>
-      <MyContext.Provider value={{ edit, setEdit }}>
+    <MyBackground>
+      <SettingsContextProvider>
         <MainGrid />
         <WidgetsMenu />
-      </MyContext.Provider>
+      </SettingsContextProvider>
     </MyBackground>
   );
 };

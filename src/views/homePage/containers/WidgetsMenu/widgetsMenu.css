@@ -1,0 +1,11 @@
+.widgets-menu {
+  position: absolute;
+  transform: translate(-50%);
+  width: 95%;
+  height: 40%;
+  bottom: 0px;
+  left: 50%;
+  background-color: black;
+  opacity: 30%;
+  border-radius: 25px 25px 0 0;
+}
