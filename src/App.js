@@ -1,25 +1,19 @@
 import { ThemeProvider } from "@emotion/react";
-import { Box } from "@mui/system";
 
-import "./app.css";
-import mySimpleThemeDark from "./palettes/mySimpleThemeDark";
+import { mySimpleThemeDark } from "./palettes";
 import MyAuthentication from "./views/auth/MyAuthentication";
 import HomePage from "./views/homePage/HomePage";
 
+import "./app.css";
+
 function App() {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        height: "100vh",
-      }}
-    >
+    <div className="app-container">
       {/* <MyAuthentication /> */}
       <ThemeProvider theme={mySimpleThemeDark}>
         <HomePage />
       </ThemeProvider>
-    </Box>
+    </div>
   );
 }
 

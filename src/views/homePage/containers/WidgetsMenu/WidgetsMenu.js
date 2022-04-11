@@ -1,40 +1,72 @@
-import MyTab from "../../components/Tabs/MyTab";
-import { useContext, useState } from "react";
-import SettingsContext from "../../tools/Context/SettingsContext";
-import "./widgetsMenu.css";
 import { Tab } from "@mui/material";
-import MyTabPanel from "../../components/Tabs/MyTabPanel";
+import { useContext } from "react";
+
+import { MyTab, MyTabPanel } from "../../components";
+import { SettingsContext, useGridLayout } from "../../tools";
 import { SearchTextField } from "../../widgets";
 
-const WidgetsMenu = ({ children }) => {
-  const { openConfig, setOpenConfig } = useContext(SettingsContext);
+import "./widgetsMenu.css";
 
-  const [indexTab, setIndexTab] = useState(0);
+const WidgetsMenu = () => {
+  const { state, dispatch } = useContext(SettingsContext);
+
+  const { addWidgetToMainGridLayout } = useGridLayout();
 
   const handleTab = (event, newValue) => {
-    setIndexTab(newValue);
+    dispatch({ type: "manageTab", value: newValue });
   };
 
-  const widgetsMenuContainer = (
-    <div className="widgets-menu">
-      <MyTab value={indexTab} onChange={handleTab}>
+  const handleWidgetDragLeave = () => {
+    dispatch({ type: "showWidgetsMenu" });
+  };
+
+  const handleWidgetDragEnd = () => {
+    addWidgetToMainGridLayout({ widget: "SearchTextField" });
+  };
+
+  // const handleIncrementCols = () => {
+  //   dispatch({ type: "incrementCols" });
+  // };
+
+  // const handleDecrementCols = () => {
+  //   dispatch({ type: "decrementCols" });
+  // };
+
+  // const handleIncrementMargin = () => {
+  //   dispatch({ type: "incrementMargin" });
+  // };
+
+  // const handleDecrementMargin = () => {
+  //   dispatch({ type: "decrementMargin" });
+  // };
+
+  return (
+    <div className="widgets-menu-container" hidden={!state.showWidgetsMenu}>
+      <MyTab value={state.tab} onChange={handleTab}>
         <Tab label="Fondo de pantalla" />
-        <Tab label="Tiempo" />
         <Tab label="Barra de buscador" />
+        {/* <Tab label="Columnas" /> */}
       </MyTab>
-      <MyTabPanel value={indexTab} index={0}>
-        <SearchTextField />
+      <MyTabPanel value={state.tab} index={0}></MyTabPanel>
+      <MyTabPanel value={state.tab} index={1}>
+        <div
+          draggable
+          onDragLeave={handleWidgetDragLeave}
+          onDragEnd={handleWidgetDragEnd}
+        >
+          <SearchTextField />
+        </div>
       </MyTabPanel>
-      <MyTabPanel value={indexTab} index={1}>
-        Tab panel 2
-      </MyTabPanel>
-      <MyTabPanel value={indexTab} index={2}>
-        Tab panel 3
-      </MyTabPanel>
+      {/* <MyTabPanel value={indexTab} index={2}>
+        <Button onClick={handleDecrementCols}>-</Button>
+        <MyPaper>{state.cols} columnas</MyPaper>
+        <Button onClick={handleIncrementCols}>+</Button>
+        <Button onClick={handleDecrementMargin}>-</Button>
+        <MyPaper>{state.margin} margen</MyPaper>
+        <Button onClick={handleIncrementMargin}>+</Button>
+      </MyTabPanel> */}
     </div>
   );
-
-  return openConfig ? widgetsMenuContainer : null;
 };
 
 export default WidgetsMenu;

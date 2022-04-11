@@ -1,11 +1,13 @@
-.widgets-menu {
+.widgets-menu-container {
   position: absolute;
-  transform: translate(-50%);
-  width: 95%;
-  height: 40%;
-  bottom: 0px;
+  transform: translate(-50%, -50%);
+  top: 50%;
   left: 50%;
+  width: 90%;
+  height: 90%;
+  border-radius: 25px;
   background-color: black;
   opacity: 30%;
-  border-radius: 25px 25px 0 0;
+  box-shadow: 0px 6px 6px -3px rgb(0 0 0 / 20%),
+    0px 10px 14px 1px rgb(0 0 0 / 14%), 0px 4px 18px 3px rgb(0 0 0 / 12%);
 }

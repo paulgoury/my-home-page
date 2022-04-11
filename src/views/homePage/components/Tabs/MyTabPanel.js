@@ -1,16 +1,7 @@
-import { Paper } from "@mui/material";
 import "./myTabPanel.css";
 
 const MyTabPanel = ({ children, value, index }) => {
-  const handleMouseDown = (event) => {
-    console.log({ event });
-  };
-
-  const layout = (
-    <Paper className="tabPanel" draggable onMouseDown={handleMouseDown}>
-      {children}
-    </Paper>
-  );
+  const layout = <div className="tab-panel-component">{children}</div>;
 
   return value === index ? layout : null;
 };

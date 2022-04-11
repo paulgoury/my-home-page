@@ -1,46 +1,41 @@
+import { useContext } from "react";
 import GridLayout, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import useGridLayout from "./useGridLayout";
-import useRowHeight from "./useRowHeight";
+import { SettingsContext, useGridLayout } from "../../tools";
+import { useRowHeight } from "../";
+
+import "./mainGrid.css";
 
 const GridLayoutWithProvider = WidthProvider(GridLayout);
 
-const gridCols = 20;
-const gridMargin = 10;
-
 function MainGrid() {
-  const getRowHeight = useRowHeight({ gridCols, gridMargin });
-  const { buildGridWidgets } = useGridLayout();
+  const { state } = useContext(SettingsContext);
 
-  const handleDrop = (event) => {
-    console.log({ event });
-    event.find((element) => {
-      if (element.i === "__dropping-elem__") {
-        buildGridWidgets();
-      }
-    });
+  const { buildGridWidgets, addTempWidget } = useGridLayout();
+
+  const handleOnDrop = (layout, gridItemDropped, event) => {
+    addTempWidget({ gridItem: gridItemDropped });
   };
-
-  // const getLayout
-
-  const handleLayoutChange = () => {};
 
   return (
     <GridLayoutWithProvider
-      className="main-grid"
-      cols={gridCols}
-      margin={[gridMargin, gridMargin]}
-      rowHeight={getRowHeight}
+      className="main-grid-container"
+      cols={state.cols}
+      margin={[state.margin, state.margin]}
+      rowHeight={useRowHeight({
+        gridCols: state.cols,
+        gridMargin: state.margin,
+      })}
       compactType={null}
       autoSize={false}
-      // isDraggable={}
-      // isResizable={}
+      isDraggable={state.isEditable}
+      isResizable={state.isEditable}
       isDroppable
       isBounded
-      onDrop={handleDrop}
-      onLayoutChange={handleLayoutChange}
+      onDrop={handleOnDrop}
+      // onLayoutChange={}
     >
       {buildGridWidgets()}
     </GridLayoutWithProvider>

@@ -1,19 +1,16 @@
-import { Box } from "@mui/system";
+import "./myBackground.css";
 
-const MyBackground = ({ children }) => {
+function MyBackground({ children }) {
   const backgroundPicture = "";
   // https://source.unsplash.com/random/1920x1080
   return (
-    <Box
-      sx={{
-        height: "100vh",
-        width: "100%",
-        backgroundImage: `url(${backgroundPicture})`,
-      }}
+    <div
+      className="myBackground-container"
+      style={{ backgroundImage: `url(${backgroundPicture})` }}
     >
       {children}
-    </Box>
+    </div>
   );
-};
+}
 
 export default MyBackground;

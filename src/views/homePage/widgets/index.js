@@ -1,4 +1,5 @@
 import SettingsButton from "./SettingsButton";
 import SearchTextField from "./SearchTextField";
+import EditSwitch from "./EditSwitch";
 
-export { SettingsButton, SearchTextField };
+export { SettingsButton, SearchTextField, EditSwitch };

@@ -1,12 +1,10 @@
-import MyBackground from "./components/MyBackground";
-import SettingsContextProvider from "./tools/Context/SettingsContextProvider";
-
-import MainGrid from "./containers/MainGrid/MainGrid";
-import WidgetsMenu from "./containers/WidgetsMenu/WidgetsMenu";
+import { MyBackground } from "./components";
+import { SettingsContextProvider } from "./tools";
+import { MainGrid, WidgetsMenu } from "./containers";
 
 import "./homePage.css";
 
-const HomePage = () => {
+function HomePage() {
   return (
     <MyBackground>
       <SettingsContextProvider>
@@ -15,6 +13,6 @@ const HomePage = () => {
       </SettingsContextProvider>
     </MyBackground>
   );
-};
+}
 
 export default HomePage;

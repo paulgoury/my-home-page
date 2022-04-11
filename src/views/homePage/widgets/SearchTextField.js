@@ -13,10 +13,7 @@ const SearchTextField = () => {
     },
   }));
 
-  const inputProps = {};
-
-  return <TextField inputProps={inputProps} />;
-  // <RedditTextField variant="filled" style={{ marginTop: 11 }} />
+  return <TextField fullWidth />;
 };
 
 export default SearchTextField;

@@ -1,13 +1,13 @@
 import { Settings } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useContext } from "react";
-import SettingsContext from "../tools/Context/SettingsContext";
+import SettingsContext from "../tools/context/SettingsContext";
 
-const SettingsButton = () => {
-  const { openConfig, setOpenConfig } = useContext(SettingsContext);
+function SettingsButton() {
+  const { dispatch } = useContext(SettingsContext);
 
   const handleButtonClick = () => {
-    setOpenConfig(!openConfig);
+    dispatch({ type: "showWidgetsMenu" });
   };
 
   return (
@@ -15,6 +15,6 @@ const SettingsButton = () => {
       <Settings sx={{ width: "100%", height: "100%" }} />
     </IconButton>
   );
-};
+}
 
 export default SettingsButton;
