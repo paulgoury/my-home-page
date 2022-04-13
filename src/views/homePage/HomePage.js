@@ -1,17 +1,16 @@
-import { MyBackground } from "./components";
+import { Background, MainGrid, WidgetsMenu } from "./containers";
 import { SettingsContextProvider } from "./tools";
-import { MainGrid, WidgetsMenu } from "./containers";
 
 import "./homePage.css";
 
 function HomePage() {
   return (
-    <MyBackground>
-      <SettingsContextProvider>
+    <SettingsContextProvider>
+      <Background>
         <MainGrid />
         <WidgetsMenu />
-      </SettingsContextProvider>
-    </MyBackground>
+      </Background>
+    </SettingsContextProvider>
   );
 }
 

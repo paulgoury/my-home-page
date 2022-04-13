@@ -1,6 +1,9 @@
 import { useContext } from "react";
 
-import { WidgetLoader, SettingsContext } from "./";
+import { SettingsContext } from "../";
+import { getWidget as Widget } from "../../utils";
+
+import "../styles/widget.css";
 
 function useGridLayout() {
   const { state, dispatch } = useContext(SettingsContext);
@@ -11,12 +14,12 @@ function useGridLayout() {
       const {
         code,
         gridItemProps,
-        widget: { widgetName },
+        widget: { widgetName, props },
       } = item;
 
       return (
-        <div key={code} data-grid={gridItemProps}>
-          <WidgetLoader widgetName={widgetName} />
+        <div key={code} data-grid={gridItemProps} className="widget-container">
+          <Widget widgetName={widgetName} props={props} />
         </div>
       );
     });

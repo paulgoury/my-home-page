@@ -3,10 +3,9 @@ import GridLayout, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import { SettingsContext, useGridLayout } from "../../tools";
-import { useRowHeight } from "../";
+import { SettingsContext, useGridLayout, useRowHeight } from "../tools";
 
-import "./mainGrid.css";
+import "./styles/mainGrid.css";
 
 const GridLayoutWithProvider = WidthProvider(GridLayout);
 
@@ -21,7 +20,7 @@ function MainGrid() {
 
   return (
     <GridLayoutWithProvider
-      className="main-grid-container"
+      className="main-grid"
       cols={state.cols}
       margin={[state.margin, state.margin]}
       rowHeight={useRowHeight({

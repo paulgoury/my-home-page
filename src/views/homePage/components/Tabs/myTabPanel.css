@@ -1,8 +1,0 @@
-.tab-panel-component {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 2%;
-  cursor: pointer;
-}

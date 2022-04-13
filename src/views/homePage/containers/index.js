@@ -1,5 +1,6 @@
-import MainGrid from "./mainGrid/MainGrid";
-import useRowHeight from "./mainGrid/useRowHeight";
-import WidgetsMenu from "./widgetsMenu/WidgetsMenu";
+import Background from "./Background";
+import MainGrid from "./MainGrid";
+import SearchInputsTab from "./SearchInputsTab";
+import WidgetsMenu from "./WidgetsMenu";
 
-export { MainGrid, useRowHeight, WidgetsMenu };
+export { Background, MainGrid, SearchInputsTab, WidgetsMenu };

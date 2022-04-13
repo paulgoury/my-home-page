@@ -1,7 +1,9 @@
 import { useReducer } from "react";
+
 import { v4 as uuidv4 } from "uuid";
 
-import { SettingsContext, getInitialState } from "../";
+import { SettingsContext } from "../";
+import { getInitialState } from "../../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -29,8 +31,6 @@ const reducer = (state, action) => {
     //   return { ...state, margin: state.margin + 1 };
     // case "decrementMargin":
     //   return { ...state, margin: state.margin - 1 };
-    case "manageTab":
-      return { ...state, tab: action.value };
     case "showWidgetsMenu":
       return { ...state, showWidgetsMenu: !state.showWidgetsMenu };
     case "editGridLayout":
@@ -38,16 +38,35 @@ const reducer = (state, action) => {
     case "addTempWidget":
       return { ...state, tempWidget: action.value };
     case "addWidget":
+      const { x, y, w, h } = state.tempWidget;
       return {
         ...state,
         gridLayout: [
           ...state.gridLayout,
           {
             code: uuidv4(),
-            gridItemProps: state.tempWidget,
-            widget: { widgetName: action.value },
+            gridItemProps: { isDraggable: undefined, x, y, w, h },
+            widget: action.value,
           },
         ],
+      };
+    case "addBookmark":
+      const { bookmarkName, bookmarkLink } = action.value;
+      return {
+        ...state,
+        bookmarks: [
+          {
+            bookmark: {
+              bookmarkName: bookmarkName,
+              bookmarkLink: bookmarkLink,
+            },
+          },
+        ],
+      };
+    case "setImage":
+      return {
+        ...state,
+        backgroundImage: action.value,
       };
     default:
       throw new Error();

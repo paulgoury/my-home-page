@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 
-import { mySimpleThemeDark } from "./palettes";
+import { simpleDarkTheme } from "./palettes";
 import MyAuthentication from "./views/auth/MyAuthentication";
 import HomePage from "./views/homePage/HomePage";
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="app-container">
       {/* <MyAuthentication /> */}
-      <ThemeProvider theme={mySimpleThemeDark}>
+      <ThemeProvider theme={simpleDarkTheme}>
         <HomePage />
       </ThemeProvider>
     </div>
