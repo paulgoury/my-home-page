@@ -1,16 +1,28 @@
-import { AccordionDetails, AccordionSummary, Accordion } from "@mui/material";
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Accordion,
+  styled,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import "../styles/myAccordion.css";
-
 function MyAccordion({ title, children }) {
+  const StyledAccordion = styled(Accordion)`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: rgba(96, 96, 96, 0);
+  `;
+
   return (
-    <Accordion className="my-accordion">
+    <StyledAccordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         {title}
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
-    </Accordion>
+    </StyledAccordion>
   );
 }
 

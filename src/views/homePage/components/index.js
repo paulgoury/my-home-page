@@ -1,22 +1,28 @@
-import DraggableDiv from "./others/DraggableDiv";
+import AddIconButton from "./others/AddIconButton";
+import BookmarkBox from "./others/BookmarkBox";
+import Draggable from "./others/Draggable";
+import DeleteIconButton from "./others/DeleteIconButton";
 import MyAccordion from "./others/MyAccordion";
-import MyPagination from "./others/MyPagination";
-import MyPaper from "./others/MyPaper";
-import MyTab from "./others/MyTab";
-import MyTabPanel from "./others/MyTabPanel";
-import Bookmarks from "./widgets/Bookmarks";
+import CustomDialog from "./others/CustomDialog";
+import CustomIconButton from "./others/CustomIconButton";
+import CustomPagination from "./others/CustomPagination";
+import BookmarksBox from "./widgets/BookmarksBox";
+import BookmarksDropdown from "./widgets/BookmarksDropdown";
 import EditSwitch from "./widgets/EditSwitch";
 import SearchInput from "./widgets/SearchInput";
 import SettingsButton from "./widgets/SettingsButton";
 
 export {
-  DraggableDiv,
+  AddIconButton,
+  BookmarkBox,
+  Draggable,
   MyAccordion,
-  MyPagination,
-  MyPaper,
-  MyTab,
-  MyTabPanel,
-  Bookmarks,
+  DeleteIconButton,
+  CustomDialog,
+  CustomIconButton,
+  CustomPagination,
+  BookmarksBox,
+  BookmarksDropdown,
   EditSwitch,
   SearchInput,
   SettingsButton,
