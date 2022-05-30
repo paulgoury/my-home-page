@@ -1,0 +1,15 @@
+html,
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+.maskInactive {
+  width: 100%;
+}
+
+.maskActive {
+  width: 100%;
+  filter: blur(5px);
+}

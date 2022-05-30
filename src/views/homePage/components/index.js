@@ -1,6 +1,29 @@
-import MyTab from "./tabs/MyTab";
-import MyTabPanel from "./tabs/MyTabPanel";
-import MyBackground from "./MyBackground";
-import MyPaper from "./MyPaper";
+import AddIconButton from "./others/AddIconButton";
+import BookmarkBox from "./others/BookmarkBox";
+import Draggable from "./others/Draggable";
+import DeleteIconButton from "./others/DeleteIconButton";
+import MyAccordion from "./others/MyAccordion";
+import CustomDialog from "./others/CustomDialog";
+import CustomIconButton from "./others/CustomIconButton";
+import CustomPagination from "./others/CustomPagination";
+import BookmarksBox from "./widgets/BookmarksBox";
+import BookmarksDropdown from "./widgets/BookmarksDropdown";
+import EditSwitch from "./widgets/EditSwitch";
+import SearchInput from "./widgets/SearchInput";
+import SettingsButton from "./widgets/SettingsButton";
 
-export { MyTab, MyTabPanel, MyBackground, MyPaper };
+export {
+  AddIconButton,
+  BookmarkBox,
+  Draggable,
+  MyAccordion,
+  DeleteIconButton,
+  CustomDialog,
+  CustomIconButton,
+  CustomPagination,
+  BookmarksBox,
+  BookmarksDropdown,
+  EditSwitch,
+  SearchInput,
+  SettingsButton,
+};
