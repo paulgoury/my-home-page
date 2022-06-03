@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { SettingsContext } from "../";
 import { getInitialState } from "../../utils";
-import { darkTheme, lightTheme } from "../../../../palettes";
+import { darkTheme, lightTheme } from "../../palettes";
 
 const reducer = (state, action) => {
   switch (action.type) {
