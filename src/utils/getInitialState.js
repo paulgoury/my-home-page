@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 
+import { darkTheme, lightTheme } from "../../../palettes";
+
 const getInitialState = {
-  // themeMode: {},
+  theme: darkTheme,
   isVisibleWidgetsMenu: false,
   mainGridData: {
     isDraggable: false,

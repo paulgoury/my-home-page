@@ -1,21 +1,24 @@
+import { useContext } from "react";
+
+import { ThemeProvider } from "@mui/material/styles";
+
+import { SettingsContext } from "./views/homePage/tools";
+import { darkTheme, lightTheme } from "./palettes";
 import MyAuthentication from "./views/auth/MyAuthentication";
 import HomePage from "./views/homePage/HomePage";
-import { darkTheme } from "./palettes";
 
-import "./app.css";
-import { ThemeProvider } from "@mui/material/styles";
-import { SettingsContextProvider } from "./views/homePage/tools";
+import styles from "./app.module.css";
 
 function App() {
+  const { state } = useContext(SettingsContext);
+
   return (
-    <SettingsContextProvider>
-      <div className="app-container">
+    <ThemeProvider theme={state.theme}>
+      <div className={styles.appContainer}>
         {/* <MyAuthentication /> */}
-        <ThemeProvider theme={darkTheme}>
-          <HomePage />
-        </ThemeProvider>
+        <HomePage />
       </div>
-    </SettingsContextProvider>
+    </ThemeProvider>
   );
 }
 

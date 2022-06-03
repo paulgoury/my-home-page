@@ -23,7 +23,7 @@ body,
   border-radius: 10px;
 }
 
-.app-container {
+.appContainer {
   display: flex;
   flex-direction: row;
   height: 100vh;
