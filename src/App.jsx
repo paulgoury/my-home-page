@@ -1,6 +1,6 @@
 import MyAuthentication from "./views/auth/MyAuthentication";
 import HomePage from "./views/homePage/HomePage";
-import { simpleDarkTheme } from "./palettes";
+import { darkTheme } from "./palettes";
 
 import "./app.css";
 import { ThemeProvider } from "@mui/material/styles";
@@ -11,7 +11,7 @@ function App() {
     <SettingsContextProvider>
       <div className="app-container">
         {/* <MyAuthentication /> */}
-        <ThemeProvider theme={simpleDarkTheme}>
+        <ThemeProvider theme={darkTheme}>
           <HomePage />
         </ThemeProvider>
       </div>

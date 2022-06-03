@@ -2,7 +2,6 @@ import AddIconButton from "./others/AddIconButton";
 import BookmarkBox from "./others/BookmarkBox";
 import Draggable from "./others/Draggable";
 import DeleteIconButton from "./others/DeleteIconButton";
-import MyAccordion from "./others/MyAccordion";
 import CustomDialog from "./others/CustomDialog";
 import CustomIconButton from "./others/CustomIconButton";
 import CustomPagination from "./others/CustomPagination";
@@ -16,7 +15,6 @@ export {
   AddIconButton,
   BookmarkBox,
   Draggable,
-  MyAccordion,
   DeleteIconButton,
   CustomDialog,
   CustomIconButton,

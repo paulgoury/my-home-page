@@ -4,15 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import { SettingsContext } from "../";
 import { getInitialState } from "../../utils";
-import { darkTheme, lightTheme } from "../../../../palettes";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "changeThemeMode":
-      return {
-        ...state,
-        themeMode: state.themeMode === "dark" ? darkTheme : lightTheme,
-      };
     case "changeVisibiliyWidgetsMenu":
       return {
         ...state,
@@ -67,7 +61,7 @@ const reducer = (state, action) => {
         ...state,
         images: {
           ...state.images,
-          backgroundImage: action.value,
+          backgroundImage: `${action.value}?blur=80`,
         },
       };
     case "addToFavoriteImages":
@@ -226,28 +220,3 @@ function SettingsContextProvider({ children }) {
 }
 
 export default SettingsContextProvider;
-
-// case "incrementCols":
-//   if (state. mainGridCols < 25) return { ...state,  mainGridCols: state. mainGridCols + 1 };
-//   return state;
-// case "decrementCols":
-//   if (state. mainGridCols > 15)
-//     return {
-//       ...state,
-//        mainGridCols: state. mainGridCols - 1,
-//       gridLayout: state.gridLayout.map(
-//         ({ code, gridItemProps, widget }) => {
-//           const { x, y, w, h } = gridItemProps;
-//           return {
-//             code,
-//             gridItemProps: { x: x - 2, y: y, w: w + 1, h: h + 1 },
-//             widget,
-//           };
-//         }
-//       ),
-//     };
-//   return state;
-// case "incrementMargin":
-//   return { ...state,  mainGridMargin: state. mainGridMargin + 1 };
-// case "decrementMargin":
-//   return { ...state,  mainGridMargin: state. mainGridMargin - 1 };

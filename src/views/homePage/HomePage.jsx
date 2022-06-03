@@ -18,7 +18,7 @@ function HomePage() {
   }, [changeVisibiliyWidgetsMenu, state.isVisibleWidgetsMenu]);
 
   return (
-    <SnackbarProvider maxSnack={3} preventDuplicate>
+    <SnackbarProvider maxSnack={3}>
       <div
         onClick={handleCloseWidgetsMenu}
         className={
