@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Link, Paper, styled } from "@mui/material";
 
-import { SettingsContext, useActions } from "../../tools";
+import { SettingsContext, useActions } from "../../../../tools";
 import { DeleteIconButton } from "../";
 
 import styles from "../styles/bookmarkBox.module.css";

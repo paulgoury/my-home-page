@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 
-import { SettingsContext } from "../../tools";
+import { SettingsContext } from "../../../../tools";
 import { CustomIconButton } from "../";
 
 function AddIconButton({ handleClick, handleStyle }) {

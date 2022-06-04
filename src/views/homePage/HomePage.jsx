@@ -2,7 +2,7 @@ import { useCallback, useContext } from "react";
 
 import { SnackbarProvider } from "notistack";
 
-import { SettingsContext, useActions } from "./tools";
+import { SettingsContext, useActions } from "../../tools";
 import { Background, MainGrid, WidgetsMenu } from "./containers";
 
 import styles from "./homePage.module.css";

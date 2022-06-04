@@ -2,8 +2,7 @@ import { useContext } from "react";
 
 import { ThemeProvider } from "@mui/material/styles";
 
-import { SettingsContext } from "./views/homePage/tools";
-import { darkTheme, lightTheme } from "./palettes";
+import { SettingsContext } from "./tools";
 import MyAuthentication from "./views/auth/MyAuthentication";
 import HomePage from "./views/homePage/HomePage";
 

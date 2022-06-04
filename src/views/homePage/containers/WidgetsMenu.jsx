@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { SettingsContext, useActions } from "../tools";
-import { getWidgetsMenuData } from "../utils";
+import { SettingsContext, useActions } from "../../../tools";
+import getWidgetsMenuData from "../utils/getWidgetsMenuData";
 import { CustomIconButton } from "../components";
 
 import styles from "./styles/widgetsMenu.module.css";
@@ -50,27 +50,3 @@ const WidgetsMenu = () => {
 };
 
 export default WidgetsMenu;
-// <MyTabPanel value={indexTab} index={2}>
-// <Button onClick={handleDecrementCols}>-</Button>
-// <MyPaper>{state. mainGridCols} columnas</MyPaper>
-// <Button onClick={handleIncrementCols}>+</Button>
-// <Button onClick={handleDecrementMargin}>-</Button>
-// <MyPaper>{state. mainGridMargin} margen</MyPaper>
-// <Button onClick={handleIncrementMargin}>+</Button>
-// </MyTabPanel>
-
-// const handleIncrementCols = () => {
-//   dispatch({ type: "incrementCols" });
-// };
-
-// const handleDecrementCols = () => {
-//   dispatch({ type: "decrementCols" });
-// };
-
-// const handleIncrementMargin = () => {
-//   dispatch({ type: "incrementMargin" });
-// };
-
-// const handleDecrementMargin = () => {
-//   dispatch({ type: "decrementMargin" });
-// };

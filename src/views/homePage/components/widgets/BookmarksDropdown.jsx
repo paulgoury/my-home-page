@@ -10,7 +10,7 @@ import {
 } from "material-ui-popup-state/hooks";
 import { useSnackbar } from "notistack";
 
-import { SettingsContext, useActions } from "../../tools";
+import { SettingsContext, useActions } from "../../../../tools";
 import { AddIconButton, DeleteIconButton, CustomDialog } from "../";
 
 import styles from "../styles/bookmarksDropdown.module.css";

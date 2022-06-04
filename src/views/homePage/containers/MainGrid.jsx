@@ -4,7 +4,8 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import { DeleteIconButton } from "../components";
-import { SettingsContext, useActions, useRowHeight } from "../tools";
+import { SettingsContext, useActions } from "../../../tools";
+import { useRowHeight } from "../tools";
 import { getWidget as Widget } from "../utils";
 
 import styles from "./styles/mainGrid.module.css";

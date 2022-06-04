@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Switch } from "@mui/material";
 
-import { SettingsContext, useActions } from "../../tools";
+import { SettingsContext, useActions } from "../../../../tools";
 
 function EditSwitch() {
   const { state } = useContext(SettingsContext);

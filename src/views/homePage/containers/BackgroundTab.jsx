@@ -21,7 +21,7 @@ import WallpaperRoundedIcon from "@mui/icons-material/WallpaperRounded";
 import { useSnackbar } from "notistack";
 
 import { CustomPagination } from "../components";
-import { SettingsContext, useActions } from "../tools";
+import { SettingsContext, useActions } from "../../../tools";
 import { getUnsplashImages } from "../utils";
 
 import deletePhotosMock from "./photosMock.json";

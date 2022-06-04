@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { SettingsContext } from "../../tools";
+import { SettingsContext } from "../../../../tools";
 import { CustomIconButton } from "../";
 
 function DeleteIconButton({ handleClick, handleStyle }) {

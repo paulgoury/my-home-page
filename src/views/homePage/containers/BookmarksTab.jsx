@@ -1,5 +1,5 @@
 import { Draggable, BookmarksBox, BookmarksDropdown } from "../components";
-import { useActions } from "../tools";
+import { useActions } from "../../../tools";
 
 import styles from "./styles/bookmarksTab.module.css";
 

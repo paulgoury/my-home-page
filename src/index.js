@@ -6,7 +6,7 @@ import { FirebaseAppProvider } from "reactfire";
 import { CssBaseline } from "@mui/material";
 
 import { getFirebaseConfig } from "./utils";
-import { SettingsContextProvider } from "./views/homePage/tools";
+import { SettingsContextProvider } from "./tools";
 import App from "./App";
 
 const container = document.getElementById("root");

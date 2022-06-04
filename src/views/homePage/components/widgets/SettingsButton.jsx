@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Settings } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
-import { SettingsContext, useActions } from "../../tools";
+import { SettingsContext, useActions } from "../../../../tools";
 
 function SettingsButton() {
   const { state } = useContext(SettingsContext);

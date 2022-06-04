@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSnackbar } from "notistack";
 
-import { SettingsContext, useActions } from "../../tools";
+import { SettingsContext, useActions } from "../../../../tools";
 import { CustomIconButton, BookmarkBox, CustomDialog } from "../";
 import { getUrlData } from "../../utils";
 

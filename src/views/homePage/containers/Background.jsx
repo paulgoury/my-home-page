@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SettingsContext } from "../tools";
+import { SettingsContext } from "../../../tools";
 
 function Background({ children }) {
   const { state } = useContext(SettingsContext);

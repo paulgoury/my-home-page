@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { IconButton, InputAdornment } from "@mui/material";
 
-import { SettingsContext } from "../../tools";
+import { SettingsContext } from "../../../../tools";
 
 function SearchInput({ isDisabled, variant, label, icon }) {
   const { state } = useContext(SettingsContext);
