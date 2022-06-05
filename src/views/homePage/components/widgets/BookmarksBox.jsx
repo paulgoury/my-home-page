@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 
 import { Paper, TextField, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSnackbar } from "notistack";
 
 import { SettingsContext, useActions } from "../../../../tools";
-import { CustomIconButton, BookmarkBox, CustomDialog } from "../";
+import { BookmarkBox, CustomDialog } from "../";
 import { getUrlData } from "../../utils";
 
 import styles from "../styles/bookmarksBox.module.css";
@@ -22,7 +21,8 @@ function BookmarksBox() {
   const { enqueueSnackbar } = useSnackbar();
 
   const { state } = useContext(SettingsContext);
-  const { addBookmarkBox, changeEditableMainGrid } = useActions();
+  const { addBookmarkBox, changeEditableMainGrid, removeBookmarkBox } =
+    useActions();
 
   const [open, setOpen] = useState(false);
   const [bookmarkBoxData, setBookmarkBoxData] = useState(
@@ -96,14 +96,18 @@ function BookmarksBox() {
       return (
         <BookmarkBox
           isVisible
-          isActive={
-            bookmarkBoxData.bookmarkBoxDisplay === "image" ? true : false
+          isIconVisible={false}
+          handleStyle={
+            bookmarkBoxData.bookmarkBoxDisplay === "image"
+              ? styles.borderNoWrap
+              : ""
           }
           handleClick={() =>
             handleClickBookmarkBoxDisplay({
               bookmarkBoxDisplay: "image",
             })
           }
+          paperVariant="bookmarkBox"
         >
           <img
             src={imageSrc}
@@ -115,7 +119,7 @@ function BookmarksBox() {
       );
     }
     return (
-      <BookmarkBox isVisible>
+      <BookmarkBox isVisible isIconVisible={false} paperVariant="bookmarkBox">
         <CircularProgress />
       </BookmarkBox>
     );
@@ -126,21 +130,27 @@ function BookmarksBox() {
       return (
         <BookmarkBox
           isVisible
-          isActive={
-            bookmarkBoxData.bookmarkBoxDisplay === "name" ? true : false
+          isIconVisible={false}
+          handleStyle={
+            bookmarkBoxData.bookmarkBoxDisplay === "name"
+              ? styles.borderNoWrap
+              : styles.noWrap
           }
           handleClick={() =>
             handleClickBookmarkBoxDisplay({
               bookmarkBoxDisplay: "name",
             })
           }
+          paperVariant="bookmarkBox"
         >
-          {bookmarkBoxData.bookmarkBoxName}
+          <Typography variant="h6">
+            {bookmarkBoxData.bookmarkBoxName}
+          </Typography>
         </BookmarkBox>
       );
     }
     return (
-      <BookmarkBox isVisible>
+      <BookmarkBox isVisible isIconVisible={false} paperVariant="bookmarkBox">
         <CircularProgress />
       </BookmarkBox>
     );
@@ -151,7 +161,18 @@ function BookmarksBox() {
       const { code, name, link, image, display } = item;
 
       return (
-        <BookmarkBox key={code} isVisible code={code} bookmarkBoxLink={link}>
+        <BookmarkBox
+          key={code}
+          isVisible
+          isIconVisible={state.mainGridData.isDraggable}
+          bookmarkBoxLink={state.mainGridData.isDraggable ? "" : link}
+          iconName="remove"
+          iconSize="small"
+          handleClickIcon={() => removeBookmarkBox({ bookmarkBoxCode: code })}
+          handleStyleIcon={styles.deleteIcon}
+          iconVariant="smallSquare"
+          paperVariant="bookmarkBox"
+        >
           {display === "image" ? (
             <img src={image} alt={name} width="90px" height="90px" />
           ) : (
@@ -164,16 +185,18 @@ function BookmarksBox() {
 
   return (
     <>
-      <Paper className={styles.bookmarksBox}>
+      <Paper variant="widget">
         {buildBookmarksBox()}
-        <BookmarkBox isVisible={state.mainGridData.isDraggable} isAddBox>
-          <CustomIconButton
-            isVisible={state.mainGridData.isDraggable}
-            handleClick={handleOpen}
-          >
-            <AddIcon color="success" />
-          </CustomIconButton>
-        </BookmarkBox>
+        <BookmarkBox
+          isVisible={state.mainGridData.isDraggable}
+          isIconVisible
+          hideLink
+          iconName="add"
+          iconSize="medium"
+          handleClick={handleOpen}
+          paperVariant="bookmarkBox"
+          iconVariant="largeSquare"
+        />
       </Paper>
 
       <CustomDialog
@@ -200,7 +223,7 @@ function BookmarksBox() {
         <Typography variant="subtitle1" align="left" sx={{ pb: 1 }}>
           Seleccione que marcador desea utilizar:
         </Typography>
-        <div className={styles.bookmarkBoxesPreview}>
+        <div className={styles.bookmarkBoxes}>
           <div>{handleBookmarkBoxImage()}</div>
           <div>{handleBookmarkBoxName()}</div>
         </div>

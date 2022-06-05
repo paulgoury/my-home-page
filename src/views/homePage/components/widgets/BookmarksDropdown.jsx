@@ -1,8 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { Button, Link, Menu, MenuItem, Paper, TextField } from "@mui/material";
+import {
+  Button,
+  Link,
+  Menu,
+  MenuItem,
+  Paper,
+  styled,
+  TextField,
+  Typography,
+} from "@mui/material";
 import {
   usePopupState,
   bindTrigger,
@@ -11,7 +20,7 @@ import {
 import { useSnackbar } from "notistack";
 
 import { SettingsContext, useActions } from "../../../../tools";
-import { AddIconButton, DeleteIconButton, CustomDialog } from "../";
+import { CustomIconButton, CustomDialog } from "../";
 
 import styles from "../styles/bookmarksDropdown.module.css";
 
@@ -151,39 +160,76 @@ function BookmarksDropdown() {
       variant: "popover",
       popupId: "demoMenu",
     });
+
+    const StyledMenu = styled((props) => <Menu {...props} />)({
+      "& .MuiPaper-root": {
+        marginTop: 8,
+        minWidth: 150,
+        maxWidth: 150,
+        backgroundColor: state.themeData.palette.background.paper,
+        backgroundImage: "none",
+        backdropFilter: "blur(2px)",
+        boxShadow: state.themeData.shadows[3],
+        "& .MuiMenu-list": {
+          padding: 4,
+        },
+        "& .MuiMenuItem-root": {
+          borderRadius: 4,
+        },
+      },
+    });
+
     return (
-      <div key={bookmarksDropdownCode}>
+      <Fragment key={bookmarksDropdownCode}>
         <div className={styles.iconAndTitle}>
-          <DeleteIconButton
+          <CustomIconButton
+            isVisible={state.mainGridData.isDraggable}
+            name="remove"
+            size="small"
             handleClick={() =>
               removeBookmarkDropdownCategory({
                 bookmarkDropdownCategoryCode: bookmarksDropdownCode,
               })
             }
+            handleStyle={styles.categoryIcon}
+            variant="smallSquare"
           />
-          <Button className={styles.categoryName} {...bindTrigger(popupState)}>
+          <Button
+            variant="dropdown"
+            className={styles.categoryName}
+            {...bindTrigger(popupState)}
+          >
             {bookmarksDropdownCategoryTitle}
           </Button>
         </div>
-        <Menu {...bindMenu(popupState)}>
-          {bookmarksDropdownCategoryLink.map((item) => (
-            <MenuItem key={item.code} onClick={popupState.close}>
-              {state.mainGridData.isDraggable ? (
-                <DeleteIconButton
+        <StyledMenu {...bindMenu(popupState)}>
+          {bookmarksDropdownCategoryLink.map((item) =>
+            state.mainGridData.isDraggable ? (
+              <MenuItem key={item.code} onClick={popupState.close}>
+                <CustomIconButton
+                  isVisible={true}
+                  name="remove"
+                  size="small"
                   handleClick={() =>
                     removeBookmarkDropdownLink({
                       bookmarkDropdownCategoryCode: bookmarksDropdownCode,
                       bookmarkDropdownLinkCode: item.code,
                     })
                   }
-                  handleStyle="none"
+                  variant="smallSquare"
                 />
-              ) : null}
-              <Link underline="none" href={item.link}>
-                {item.name}
-              </Link>
-            </MenuItem>
-          ))}
+                <Typography color={state.themeData.palette.grey.A200}>
+                  {item.name}
+                </Typography>
+              </MenuItem>
+            ) : (
+              <MenuItem key={item.code} onClick={popupState.close}>
+                <Link underline="none" href={item.link}>
+                  {item.name}
+                </Link>
+              </MenuItem>
+            )
+          )}
           {state.mainGridData.isDraggable ? (
             <MenuItem
               key={uuidv4()}
@@ -193,18 +239,24 @@ function BookmarksDropdown() {
                 })
               }
             >
-              <AddIconButton handleStyle={styles.icon} />
+              <CustomIconButton
+                isVisible={state.mainGridData.isDraggable}
+                name="add"
+                size="small"
+                handleStyle={styles.icon}
+                variant="smallSquare"
+              />
               <Link underline="none">Nuevo</Link>
             </MenuItem>
-          ) : undefined}
-        </Menu>
-      </div>
+          ) : null}
+        </StyledMenu>
+      </Fragment>
     );
   };
 
   return (
     <>
-      <Paper className={styles.bookmarksDropdown}>
+      <Paper variant="widget" className={styles.bookmarksDropdown}>
         {state?.bookmarks?.bookmarksDropdown?.map((item) => {
           return (
             <MyMenu
@@ -215,9 +267,12 @@ function BookmarksDropdown() {
             />
           );
         })}
-        <AddIconButton
+        <CustomIconButton
           isVisible={state.mainGridData.isDraggable}
+          name="add"
+          size="medium"
           handleClick={handleOpenAddCategory}
+          variant="largeSquare"
         />
       </Paper>
       <CustomDialog

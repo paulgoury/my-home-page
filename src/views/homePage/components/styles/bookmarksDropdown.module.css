@@ -8,7 +8,18 @@
 }
 
 .iconAndTitle {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 100%;
+  padding: 4px 0px;
+}
+
+.categoryIcon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 20px;
+  right: 0;
+  z-index: 1;
 }

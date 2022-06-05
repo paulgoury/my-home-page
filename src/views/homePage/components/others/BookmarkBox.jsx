@@ -1,67 +1,54 @@
+import { Link, Paper, Typography } from "@mui/material";
+
+import { CustomIconButton } from "../";
 import { useContext } from "react";
-
-import { Link, Paper, styled } from "@mui/material";
-
-import { SettingsContext, useActions } from "../../../../tools";
-import { DeleteIconButton } from "../";
-
-import styles from "../styles/bookmarkBox.module.css";
+import { SettingsContext } from "../../../../tools";
 
 function BookmarkBox({
   isVisible,
-  isActive,
-  isAddBox,
-  code,
+  isIconVisible,
+  hideLink,
   bookmarkBoxLink,
+  iconName,
+  iconSize,
   handleClick,
+  handleClickIcon,
+  handleStyle,
+  handleStyleIcon,
+  paperVariant,
+  iconVariant,
   children,
 }) {
   const { state } = useContext(SettingsContext);
-  const { removeBookmarkBox } = useActions();
-
-  const StyledPaper = styled(Paper)(
-    ({ theme }) => `
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 150px;
-    max-width: 150px;
-    min-height: 100px;
-    max-height: 100px;
-    margin: 10px;
-    padding: 10px;
-    cursor: pointer;
-    border: ${
-      isActive ? "1px solid " + theme.palette.secondary.main : "default"
-    };
-    &:hover: {
-      boxShadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.23),
-    },
-  `
-  );
 
   const Component = () => {
     return (
-      <StyledPaper
-        key={code}
-        draggable="false"
-        variant="outlined"
+      <Paper
         onClick={handleClick}
+        draggable="false"
+        className={handleStyle}
+        variant={paperVariant}
       >
-        {!isAddBox ? (
-          <DeleteIconButton
-            isVisible={state.mainGridData.isDraggable}
-            handleClick={() => removeBookmarkBox({ bookmarkBoxCode: code })}
-            handleStyle={styles.deleteIcon}
-          />
-        ) : (
-          <></>
-        )}
-        <Link underline="none" href={bookmarkBoxLink}>
-          {children}
-        </Link>
-      </StyledPaper>
+        <CustomIconButton
+          isVisible={isIconVisible}
+          name={iconName}
+          size={iconSize}
+          handleClick={handleClickIcon}
+          handleStyle={handleStyleIcon}
+          variant={iconVariant}
+        />
+        {!hideLink ? (
+          bookmarkBoxLink !== "" ? (
+            <Link underline="none" href={bookmarkBoxLink} variant="h6">
+              {children}
+            </Link>
+          ) : (
+            <Typography color={state.themeData.palette.grey.A200}>
+              {children}
+            </Typography>
+          )
+        ) : null}
+      </Paper>
     );
   };
 

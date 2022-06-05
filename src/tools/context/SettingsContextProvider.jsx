@@ -3,15 +3,20 @@ import { useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { SettingsContext } from "../";
+import { ThemeData } from "../../styles";
 import { getInitialState } from "../../utils";
-import { darkTheme, lightTheme } from "../../palettes";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "setThemeMode":
+      return {
+        ...state,
+        themeData: ThemeData({ themeMode: action.value }),
+      };
     case "changeThemeMode":
       return {
         ...state,
-        theme: state.theme === darkTheme ? lightTheme : darkTheme,
+        themeMode: state.themeMode === "dark" ? "light" : "dark",
       };
     case "changeVisibiliyWidgetsMenu":
       return {

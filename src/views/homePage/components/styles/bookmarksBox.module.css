@@ -10,8 +10,23 @@
   overflow: auto;
 }
 
-.bookmarkBoxesPreview {
+.bookmarkBoxes {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.borderNoWrap {
+  border: 1px solid white;
+  word-break: break-word;
+}
+
+.noWrap {
+  word-break: break-word;
 }

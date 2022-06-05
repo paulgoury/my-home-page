@@ -1,16 +1,12 @@
 import { useContext, useState } from "react";
 
-import ClearIcon from "@mui/icons-material/Clear";
-
-import { SettingsContext, useActions } from "../../../tools";
+import { SettingsContext } from "../../../tools";
 import getWidgetsMenuData from "../utils/getWidgetsMenuData";
-import { CustomIconButton } from "../components";
 
 import styles from "./styles/widgetsMenu.module.css";
 
 const WidgetsMenu = () => {
   const { state } = useContext(SettingsContext);
-  const { changeVisibiliyWidgetsMenu } = useActions();
 
   const [tab, setTab] = useState(0);
 
@@ -19,13 +15,6 @@ const WidgetsMenu = () => {
   return (
     <div hidden={!state.isVisibleWidgetsMenu} className={styles.mainActive}>
       <div className={styles.containers}>
-        <CustomIconButton
-          isVisible
-          handleClick={changeVisibiliyWidgetsMenu}
-          handleStyle={styles.closeIcon}
-        >
-          <ClearIcon color="error" fontSize="medium" />
-        </CustomIconButton>
         <div className={styles.leftContainer}>
           {tabs.map((item, index) => (
             <div

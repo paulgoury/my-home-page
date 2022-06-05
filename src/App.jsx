@@ -12,7 +12,7 @@ function App() {
   const { state } = useContext(SettingsContext);
 
   return (
-    <ThemeProvider theme={state.theme}>
+    <ThemeProvider theme={state.themeData}>
       <div className={styles.appContainer}>
         {/* <MyAuthentication /> */}
         <HomePage />

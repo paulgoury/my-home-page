@@ -3,7 +3,9 @@ import GridLayout, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import { DeleteIconButton } from "../components";
+import ClearIcon from "@mui/icons-material/Clear";
+
+import { CustomIconButton } from "../components";
 import { SettingsContext, useActions } from "../../../tools";
 import { useRowHeight } from "../tools";
 import { getWidget as Widget } from "../utils";
@@ -34,9 +36,13 @@ function MainGrid() {
         >
           <Widget widgetName={name} widgetProps={props} />
           {name !== "EditSwitch" && name !== "SettingsButton" ? (
-            <DeleteIconButton
+            <CustomIconButton
+              isVisible={state.mainGridData.isDraggable}
+              name="remove"
+              size="small"
               handleClick={() => removeWidgetFromMainGrid({ widgetCode: code })}
               handleStyle={styles.icon}
+              variant="smallSquare"
             />
           ) : (
             <></>

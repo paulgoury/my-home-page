@@ -197,7 +197,6 @@ function BackgroundTab() {
           <TextField
             {...register("query")}
             placeholder="Buscar fotos..."
-            inp
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -217,7 +216,7 @@ function BackgroundTab() {
           />
         </form>
       </div>
-      <Paper className={styles.paperContainer}>
+      <Paper variant="tabContent" className={styles.paperContainer}>
         <div className={styles.imageList}>
           <ImageList cols={3} gap={8}>
             {gallery !== null ? displayPhotos() : displayFavoriteImages()}

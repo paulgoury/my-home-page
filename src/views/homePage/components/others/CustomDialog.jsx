@@ -14,7 +14,7 @@ function CustomDialog({
   children,
 }) {
   return (
-    <Dialog open={isVisible} onClose={handleCancel}>
+    <Dialog variant="blurred" open={isVisible} onClose={handleCancel}>
       <DialogTitle>{dialogTitle}</DialogTitle>
       <DialogContent dividers sx={{ p: 5 }}>
         {children}

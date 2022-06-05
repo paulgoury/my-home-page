@@ -5,6 +5,17 @@ import { SettingsContext } from "../";
 function useActions() {
   const { dispatch } = useContext(SettingsContext);
 
+  const setThemeMode = useCallback(
+    ({ themeMode }) => {
+      dispatch({ type: "setThemeMode", value: themeMode });
+    },
+    [dispatch]
+  );
+
+  const changeThemeMode = useCallback(() => {
+    dispatch({ type: "changeThemeMode" });
+  }, [dispatch]);
+
   const changeVisibiliyWidgetsMenu = useCallback(() => {
     dispatch({ type: "changeVisibiliyWidgetsMenu" });
   }, [dispatch]);
@@ -137,6 +148,8 @@ function useActions() {
   );
 
   return {
+    setThemeMode,
+    changeThemeMode,
     changeVisibiliyWidgetsMenu,
     changeEditableMainGrid,
     addTempWidget,
