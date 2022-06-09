@@ -1,10 +1,17 @@
-import { Grid, Paper } from "@mui/material";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+
+import { Grid, Link, Paper, Typography } from "@mui/material";
 
 import MyLogin from "./containers/MyLogin";
 import MyRegister from "./containers/MyRegister";
 
-const MyAuthentication = ({ isRegister }) => {
+const MyAuthentication = () => {
+  const [isRegister, setIsRegister] = useState(false);
+
+  const handleClick = () => {
+    setIsRegister(!isRegister);
+  };
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item xs={6}>
@@ -32,18 +39,15 @@ const MyAuthentication = ({ isRegister }) => {
               "0px 6px 6px -3px rgb(0 0 0 / 20%), 0px 10px 14px 1px rgb(0 0 0 / 14%), 0px 4px 18px 3px rgb(0 0 0 / 12%)",
           }}
         >
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  isRegister ? <MyLogin /> : <MyRegister />
-                }
-              />
-              <Route path="/myLogin" element={<MyLogin />} />
-              <Route path="/myRegister" element={<MyRegister />} />
-            </Routes>
-          </BrowserRouter>
+          {isRegister ? <MyRegister /> : <MyLogin />}
+          <Grid item fontSize={13} mb={2}>
+            <Typography>
+              {isRegister ? "Ya tienes cuenta ?" : "No tienes cuenta ?"}
+              <Link onClick={handleClick} style={{ cursor: "pointer" }}>
+                {isRegister ? " Iniciar sesión" : " Registrarse"}
+              </Link>
+            </Typography>
+          </Grid>
         </Paper>
       </Grid>
     </Grid>

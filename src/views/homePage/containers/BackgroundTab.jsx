@@ -8,15 +8,12 @@ import {
   ImageListItem,
   ImageListItemBar,
   Paper,
-  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ImageList from "@mui/material/ImageList";
 import InfoIcon from "@mui/icons-material/Info";
-import CircularProgress from "@mui/material/CircularProgress";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import WallpaperRoundedIcon from "@mui/icons-material/WallpaperRounded";
 import { useSnackbar } from "notistack";
 
@@ -82,13 +79,6 @@ function BackgroundTab() {
     ]
   );
 
-  const handleClickModify = ({
-    imageSrc,
-    imageAlt,
-    imageUserName,
-    imageUserMedia,
-  }) => {};
-
   const displayImageIcons = ({
     imageSrc,
     imageAlt,
@@ -122,18 +112,6 @@ function BackgroundTab() {
           ) : (
             <FavoriteBorderRoundedIcon />
           )}
-        </IconButton>
-        <IconButton
-          onClick={() =>
-            handleClickModify({
-              imageSrc: imageSrc,
-              imageAlt: imageAlt,
-              imageUserName: imageUserName,
-              imageUserMedia: imageUserMedia,
-            })
-          }
-        >
-          <AutoFixHighRoundedIcon />
         </IconButton>
         <IconButton
           onClick={() => {

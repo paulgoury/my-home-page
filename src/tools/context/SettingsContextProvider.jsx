@@ -4,10 +4,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import { SettingsContext } from "../";
 import { ThemeData } from "../../styles";
-import { getInitialState } from "../../utils";
+import { getInitialData } from "../../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "overwriteState":
+      return action.value;
     case "setThemeMode":
       return {
         ...state,
@@ -43,6 +45,27 @@ const reducer = (state, action) => {
       const { x, y, w, h } = state.mainGridData.tempItemLayoutData;
       const { widgetName, widgetProps } = action.value;
 
+      let width = w;
+      let height = h;
+
+      switch (widgetName) {
+        case "BookmarksBox":
+          width = 5;
+          height = 4;
+          break;
+        case "BookmarksDropdown":
+          width = 10;
+          height = 2;
+          break;
+        case "SearchInput":
+          width = 5;
+          height = 2;
+          break;
+
+        default:
+          break;
+      }
+
       return {
         ...state,
         mainGridData: {
@@ -51,7 +74,7 @@ const reducer = (state, action) => {
             ...state.mainGridData.layout,
             {
               code: uuidv4(),
-              data: { isDraggable: undefined, x, y, w, h },
+              data: { isDraggable: undefined, x, y, width, height },
               widget: { name: widgetName, props: widgetProps },
             },
           ],
@@ -221,8 +244,7 @@ const reducer = (state, action) => {
 };
 
 function SettingsContextProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, getInitialState);
-
+  const [state, dispatch] = useReducer(reducer, getInitialData);
   return (
     <SettingsContext.Provider value={{ state, dispatch }}>
       {children}

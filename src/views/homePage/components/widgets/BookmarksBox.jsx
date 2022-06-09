@@ -188,7 +188,10 @@ function BookmarksBox() {
       <Paper variant="widget">
         {buildBookmarksBox()}
         <BookmarkBox
-          isVisible={state.mainGridData.isDraggable}
+          isVisible={
+            state.mainGridData.isDraggable ||
+            state.bookmarks.bookmarksBox.length === 0
+          }
           isIconVisible
           hideLink
           iconName="add"

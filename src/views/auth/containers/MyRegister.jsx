@@ -1,14 +1,13 @@
 import { useState } from "react";
+
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
 
-import MyWrapper from "../components/MyWrapper";
-import MyTitle from "../components/MyTitle";
-import MyTextField from "../components/MyTextField";
-import MyButton from "../components/MyButton";
+import { Grid, Link, Typography } from "@mui/material";
 
-const MyRegister = () => {
+import { MyWrapper, MyTitle, MyTextField, MyButton } from "../components";
+import { getFirestoreInitializer } from "../../../utils/";
+
+const MyRegister = ({ handleClick }) => {
   const [values, setValues] = useState({
     showPassword: true,
     correctCredentils: 0,
@@ -42,15 +41,11 @@ const MyRegister = () => {
   };
 
   const passwordsEquals = () => {
-    console.log(credentials.firstPassword);
-    console.log(credentials.secondPassword);
     return credentials.firstPassword === credentials.secondPassword;
   };
 
-  const auth = getAuth();
+  const auth = getAuth(getFirestoreInitializer);
   const registerOnClick = async () => {
-    console.log(credentials.firstPassword);
-    console.log(credentials.secondPassword);
     if (credentials.firstPassword === credentials.secondPassword) {
       try {
         const userCredentials = await createUserWithEmailAndPassword(
@@ -131,12 +126,11 @@ const MyRegister = () => {
         </MyButton>
       </Grid>
 
-      <Grid item fontSize={13} mb={2}>
-        Ya tienes cuenta ?{" "}
-        <Link to="/myLogin">
-          <u>Iniciar sesión</u>
-        </Link>
-      </Grid>
+      {/* <Grid item fontSize={13} mb={2}>
+        <Typography>
+          Ya tienes cuenta ? <Link onClick={handleClick}>Iniciar sesión</Link>
+        </Typography>
+      </Grid> */}
     </MyWrapper>
   );
 };

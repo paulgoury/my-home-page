@@ -1,5 +1,5 @@
-import getFirebaseConfig from "./getFirebaseConfig";
+import getFirestoreInitializer from "./getFirestoreInitializer";
 import getUnsplashConfig from "./getUnsplashConfig";
-import getInitialState from "./getInitialState";
+import getInitialData from "./getInitialData";
 
-export { getFirebaseConfig, getUnsplashConfig, getInitialState };
+export { getFirestoreInitializer, getUnsplashConfig, getInitialData };

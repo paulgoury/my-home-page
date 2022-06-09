@@ -1,8 +1,6 @@
-import { Link, Paper, Typography } from "@mui/material";
+import { Link, Paper, Typography, useTheme } from "@mui/material";
 
 import { CustomIconButton } from "../";
-import { useContext } from "react";
-import { SettingsContext } from "../../../../tools";
 
 function BookmarkBox({
   isVisible,
@@ -19,7 +17,7 @@ function BookmarkBox({
   iconVariant,
   children,
 }) {
-  const { state } = useContext(SettingsContext);
+  const { palette } = useTheme();
 
   const Component = () => {
     return (
@@ -43,9 +41,7 @@ function BookmarkBox({
               {children}
             </Link>
           ) : (
-            <Typography color={state.themeData.palette.grey.A200}>
-              {children}
-            </Typography>
+            <Typography color={palette.grey.A200}>{children}</Typography>
           )
         ) : null}
       </Paper>

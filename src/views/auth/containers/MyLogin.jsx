@@ -1,19 +1,18 @@
 import { useState } from "react";
+
 import {
   getAuth,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { Button, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
 
-import MyWrapper from "../components/MyWrapper";
-import MyTitle from "../components/MyTitle";
-import MyTextField from "../components/MyTextField";
-import MyButton from "../components/MyButton";
+import { Button, Grid, Link, Typography } from "@mui/material";
 
-const MyLogin = () => {
+import { MyWrapper, MyTitle, MyTextField, MyButton } from "../components";
+import { getFirestoreInitializer } from "../../../utils/";
+
+const MyLogin = ({ handleClick }) => {
   const [values, setValues] = useState({
     showPassword: true,
     correctCredentils: 0,
@@ -38,7 +37,7 @@ const MyLogin = () => {
     });
   };
 
-  const auth = getAuth();
+  const auth = getAuth(getFirestoreInitializer);
 
   const provider = new GoogleAuthProvider();
   const loginWithGoogleOnClick = async () => {
@@ -128,10 +127,6 @@ const MyLogin = () => {
         />
       </Grid>
 
-      <Grid item fontSize={13} mb={2}>
-        Has olvidado la contraseña ? <u>Recuperar</u>
-      </Grid>
-
       <Grid item mb={7} width="50%">
         <MyButton
           color={"secondary"}
@@ -140,12 +135,11 @@ const MyLogin = () => {
           Iniciar sesión
         </MyButton>
       </Grid>
-      <Grid item fontSize={13} mb={2}>
-        No tienes cuenta ?{" "}
-        <Link to="/myRegister">
-          <u>Registrarse</u>
-        </Link>
-      </Grid>
+      {/* <Grid item fontSize={13} mb={2}>
+        <Typography>
+          No tienes cuenta ? <Link onClick={handleClick}>Registrarse</Link>
+        </Typography>
+      </Grid> */}
     </MyWrapper>
   );
 };

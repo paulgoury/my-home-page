@@ -3,8 +3,6 @@ import GridLayout, { WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-import ClearIcon from "@mui/icons-material/Clear";
-
 import { CustomIconButton } from "../components";
 import { SettingsContext, useActions } from "../../../tools";
 import { useRowHeight } from "../tools";

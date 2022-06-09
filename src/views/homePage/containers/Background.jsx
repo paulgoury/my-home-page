@@ -1,10 +1,13 @@
 import { useContext } from "react";
 
+import { useTheme } from "@emotion/react";
+
 import { SettingsContext } from "../../../tools";
 
 function Background({ children }) {
   const { state } = useContext(SettingsContext);
-  // : state.themeData.palette.background.default
+  const { palette } = useTheme();
+  // : palette.background.default
   // state.images.backgroundImage !== ""
   // ? `url(${state.images.backgroundImage})`
 

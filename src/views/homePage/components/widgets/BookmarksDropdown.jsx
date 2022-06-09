@@ -23,6 +23,7 @@ import { SettingsContext, useActions } from "../../../../tools";
 import { CustomIconButton, CustomDialog } from "../";
 
 import styles from "../styles/bookmarksDropdown.module.css";
+import { useTheme } from "@emotion/react";
 
 const initialBookmarksDropdownData = {
   bookmarkDropdownCategoryName: "",
@@ -31,6 +32,7 @@ const initialBookmarksDropdownData = {
 };
 
 function BookmarksDropdown() {
+  const { palette, shadows } = useTheme();
   const { enqueueSnackbar } = useSnackbar();
 
   const { state } = useContext(SettingsContext);
@@ -166,10 +168,10 @@ function BookmarksDropdown() {
         marginTop: 8,
         minWidth: 150,
         maxWidth: 150,
-        backgroundColor: state.themeData.palette.background.paper,
+        backgroundColor: palette.background.paper,
         backgroundImage: "none",
         backdropFilter: "blur(2px)",
-        boxShadow: state.themeData.shadows[3],
+        boxShadow: shadows[3],
         "& .MuiMenu-list": {
           padding: 4,
         },
@@ -218,9 +220,7 @@ function BookmarksDropdown() {
                   }
                   variant="smallSquare"
                 />
-                <Typography color={state.themeData.palette.grey.A200}>
-                  {item.name}
-                </Typography>
+                <Typography color={palette.grey.A200}>{item.name}</Typography>
               </MenuItem>
             ) : (
               <MenuItem key={item.code} onClick={popupState.close}>
@@ -268,7 +268,10 @@ function BookmarksDropdown() {
           );
         })}
         <CustomIconButton
-          isVisible={state.mainGridData.isDraggable}
+          isVisible={
+            state.mainGridData.isDraggable ||
+            state.bookmarks.bookmarksDropdown.length === 0
+          }
           name="add"
           size="medium"
           handleClick={handleOpenAddCategory}
