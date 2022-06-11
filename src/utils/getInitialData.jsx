@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 const getInitialData = {
+  user: null,
   themeMode: "dark",
   isVisibleWidgetsMenu: false,
   mainGridData: {

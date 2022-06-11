@@ -5,6 +5,13 @@ import { SettingsContext } from "../";
 function useActions() {
   const { dispatch } = useContext(SettingsContext);
 
+  const manageUser = useCallback(
+    ({ userEmail }) => {
+      dispatch({ type: "manageUser", value: userEmail });
+    },
+    [dispatch]
+  );
+
   const overwriteState = useCallback(
     ({ firebaseData }) => {
       dispatch({ type: "overwriteState", value: firebaseData });
@@ -155,6 +162,7 @@ function useActions() {
   );
 
   return {
+    manageUser,
     overwriteState,
     setThemeMode,
     changeThemeMode,

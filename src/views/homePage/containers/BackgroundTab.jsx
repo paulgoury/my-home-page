@@ -12,6 +12,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ImageList from "@mui/material/ImageList";
 import InfoIcon from "@mui/icons-material/Info";
+import PhotoRoundedIcon from "@mui/icons-material/PhotoRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import WallpaperRoundedIcon from "@mui/icons-material/WallpaperRounded";
@@ -79,52 +80,59 @@ function BackgroundTab() {
     ]
   );
 
-  const displayImageIcons = ({
-    imageSrc,
-    imageAlt,
-    imageUserName,
-    imageUserMedia,
-  }) => {
-    return (
-      <>
-        <IconButton
-          onClick={() =>
-            handleClickInfo({
-              authorUrl: imageUserMedia,
-            })
-          }
-        >
-          <InfoIcon />
-        </IconButton>
-        <IconButton
-          onClick={() =>
-            handleClickFavorite({
-              imageSrc: imageSrc,
-              imageAlt: imageAlt,
-              imageUserName: imageUserName,
-              imageUserMedia: imageUserMedia,
-            })
-          }
-        >
-          {state.images.favoriteImages.find((e) => e.src === imageSrc) !==
-          undefined ? (
-            <FavoriteRoundedIcon />
-          ) : (
-            <FavoriteBorderRoundedIcon />
-          )}
-        </IconButton>
-        <IconButton
-          onClick={() => {
-            setBackgroundImage({ backgroundImage: imageSrc });
-          }}
-        >
-          <WallpaperRoundedIcon />
-        </IconButton>
-      </>
-    );
-  };
+  const displayImageIcons = useCallback(
+    ({ imageSrc, imageAlt, imageUserName, imageUserMedia }) => {
+      return (
+        <>
+          <IconButton
+            onClick={() =>
+              handleClickInfo({
+                authorUrl: imageUserMedia,
+              })
+            }
+          >
+            <InfoIcon />
+          </IconButton>
+          <IconButton
+            onClick={() =>
+              handleClickFavorite({
+                imageSrc: imageSrc,
+                imageAlt: imageAlt,
+                imageUserName: imageUserName,
+                imageUserMedia: imageUserMedia,
+              })
+            }
+          >
+            {state.images.favoriteImages.find((e) => e.src === imageSrc) !==
+            undefined ? (
+              <FavoriteRoundedIcon />
+            ) : (
+              <FavoriteBorderRoundedIcon />
+            )}
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              setBackgroundImage({ backgroundImage: imageSrc });
+            }}
+          >
+            {state.images.backgroundImage === `${imageSrc}&blur=80` ? (
+              <PhotoRoundedIcon />
+            ) : (
+              <WallpaperRoundedIcon />
+            )}
+          </IconButton>
+        </>
+      );
+    },
+    [
+      handleClickFavorite,
+      setBackgroundImage,
+      state.images.backgroundImage,
+      state.images.favoriteImages,
+    ]
+  );
 
-  const displayPhotos = () => {
+  const displayPhotos = useCallback(() => {
     return gallery?.response?.results?.map((item, index) => {
       return (
         <ImageListItem key={index}>
@@ -141,7 +149,7 @@ function BackgroundTab() {
         </ImageListItem>
       );
     });
-  };
+  }, [displayImageIcons, gallery?.response?.results]);
 
   const displayFavoriteImages = () => {
     return state.images.favoriteImages.map((item, index) => {

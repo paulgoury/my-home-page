@@ -8,6 +8,11 @@ import { getInitialData } from "../../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "manageUser":
+      return {
+        ...state,
+        user: action.value,
+      };
     case "overwriteState":
       return action.value;
     case "setThemeMode":
@@ -45,27 +50,6 @@ const reducer = (state, action) => {
       const { x, y, w, h } = state.mainGridData.tempItemLayoutData;
       const { widgetName, widgetProps } = action.value;
 
-      let width = w;
-      let height = h;
-
-      switch (widgetName) {
-        case "BookmarksBox":
-          width = 5;
-          height = 4;
-          break;
-        case "BookmarksDropdown":
-          width = 10;
-          height = 2;
-          break;
-        case "SearchInput":
-          width = 5;
-          height = 2;
-          break;
-
-        default:
-          break;
-      }
-
       return {
         ...state,
         mainGridData: {
@@ -74,7 +58,7 @@ const reducer = (state, action) => {
             ...state.mainGridData.layout,
             {
               code: uuidv4(),
-              data: { isDraggable: undefined, x, y, width, height },
+              data: { isDraggable: undefined, x, y, w, h },
               widget: { name: widgetName, props: widgetProps },
             },
           ],
@@ -95,7 +79,7 @@ const reducer = (state, action) => {
         ...state,
         images: {
           ...state.images,
-          backgroundImage: `${action.value}?blur=80`,
+          backgroundImage: `${action.value}&blur=80`,
         },
       };
     case "addToFavoriteImages":

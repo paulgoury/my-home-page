@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-import { Grid, Link, Paper, Typography } from "@mui/material";
+import { Grid, Link, Paper, Typography, useTheme } from "@mui/material";
 
 import MyLogin from "./containers/MyLogin";
 import MyRegister from "./containers/MyRegister";
 
 const MyAuthentication = () => {
+  const { palette, shadows } = useTheme();
   const [isRegister, setIsRegister] = useState(false);
 
   const handleClick = () => {
@@ -13,7 +14,13 @@ const MyAuthentication = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor={palette.background.default}
+      padding={10}
+    >
       <Grid item xs={6}>
         <Grid container direction="column" justifyContent="center" spacing={5}>
           <Grid item typography="h4">
@@ -33,17 +40,21 @@ const MyAuthentication = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            minHeight: "100%",
-            borderRadius: "30px",
-            boxShadow:
-              "0px 6px 6px -3px rgb(0 0 0 / 20%), 0px 10px 14px 1px rgb(0 0 0 / 14%), 0px 4px 18px 3px rgb(0 0 0 / 12%)",
+            height: "100%",
+            borderRadius: 4,
+            backgroundColor: palette.background.paper,
+            boxShadow: shadows[3],
           }}
         >
           {isRegister ? <MyRegister /> : <MyLogin />}
           <Grid item fontSize={13} mb={2}>
             <Typography>
               {isRegister ? "Ya tienes cuenta ?" : "No tienes cuenta ?"}
-              <Link onClick={handleClick} style={{ cursor: "pointer" }}>
+              <Link
+                onClick={handleClick}
+                underline="none"
+                style={{ cursor: "pointer" }}
+              >
                 {isRegister ? " Iniciar sesión" : " Registrarse"}
               </Link>
             </Typography>

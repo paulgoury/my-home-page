@@ -6,7 +6,7 @@ import { SnackbarProvider } from "notistack";
 
 import { SettingsContext, useActions } from "../../tools";
 import { Background, MainGrid, WidgetsMenu } from "./containers";
-import { getFirestoreInitializer, getInitialData } from "../../utils";
+import { getFirestoreInitializer } from "../../utils";
 
 import styles from "./homePage.module.css";
 
@@ -15,19 +15,32 @@ const firestore = getFirestore(getFirestoreInitializer);
 function HomePage({ userEmail }) {
   const { state } = useContext(SettingsContext);
   const { changeVisibiliyWidgetsMenu, overwriteState } = useActions();
+  const { themeMode, mainGridData, images, bookmarks, searchEngines } = state;
+
+  let email = userEmail;
 
   useEffect(() => {
-    const manageDocument = async ({ email }) => {
-      const docRef = doc(firestore, `users/${email}`);
-      const query = await getDoc(docRef);
-      query.exists()
-        ? overwriteState({ firebaseData: query.data() })
-        : await setDoc(docRef, getInitialData);
+    return () => {
+      const manageDocument = async () => {
+        const docRef = doc(firestore, `users/${email}`);
+        const query = await getDoc(docRef);
+        query.exists()
+          ? overwriteState({ firebaseData: query.data() })
+          : await setDoc(docRef, {
+              themeMode,
+              mainGridData,
+              images,
+              bookmarks,
+              searchEngines,
+            });
+      };
+      if (email) {
+        manageDocument();
+      }
     };
-    if (userEmail) {
-      manageDocument({ email: userEmail });
-    }
-  }, [overwriteState, userEmail]);
+  }, []);
+
+  email = null;
 
   const handleCloseWidgetsMenu = useCallback(() => {
     if (state.isVisibleWidgetsMenu) {

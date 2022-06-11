@@ -2,12 +2,12 @@ import { useState } from "react";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-import { Grid, Link, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import { MyWrapper, MyTitle, MyTextField, MyButton } from "../components";
 import { getFirestoreInitializer } from "../../../utils/";
 
-const MyRegister = ({ handleClick }) => {
+const MyRegister = () => {
   const [values, setValues] = useState({
     showPassword: true,
     correctCredentils: 0,
@@ -46,7 +46,7 @@ const MyRegister = ({ handleClick }) => {
 
   const auth = getAuth(getFirestoreInitializer);
   const registerOnClick = async () => {
-    if (credentials.firstPassword === credentials.secondPassword) {
+    if (passwordsEquals) {
       try {
         const userCredentials = await createUserWithEmailAndPassword(
           auth,
@@ -125,12 +125,6 @@ const MyRegister = ({ handleClick }) => {
           Registrarse
         </MyButton>
       </Grid>
-
-      {/* <Grid item fontSize={13} mb={2}>
-        <Typography>
-          Ya tienes cuenta ? <Link onClick={handleClick}>Iniciar sesión</Link>
-        </Typography>
-      </Grid> */}
     </MyWrapper>
   );
 };

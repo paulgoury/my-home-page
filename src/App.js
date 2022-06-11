@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { ThemeProvider } from "@mui/material/styles";
 
-import { SettingsContext } from "./tools";
+import { SettingsContext, useActions } from "./tools";
 import MyAuthentication from "./views/auth/MyAuthentication";
 import HomePage from "./views/homepage/HomePage";
 import { ThemeData } from "./styles";
@@ -15,13 +15,15 @@ import styles from "./app.module.css";
 const auth = getAuth(getFirestoreInitializer);
 
 function App() {
-  const [user, setUser] = useState(null);
   const { state } = useContext(SettingsContext);
+  const { manageUser } = useActions();
 
   useEffect(() => {
     return () => {
       onAuthStateChanged(auth, (firebaseUser) => {
-        firebaseUser ? setUser(firebaseUser) : setUser(null);
+        firebaseUser
+          ? manageUser({ userEmail: firebaseUser.email })
+          : manageUser({ userEmail: null });
       });
     };
   }, []);
@@ -31,7 +33,11 @@ function App() {
       theme={ThemeData({ themeMode: state ? state.themeMode : "dark" })}
     >
       <div className={styles.appContainer}>
-        {user ? <HomePage userEmail={user.email} /> : <MyAuthentication />}
+        {state.user ? (
+          <HomePage userEmail={state.user} />
+        ) : (
+          <MyAuthentication />
+        )}
       </div>
     </ThemeProvider>
   );
