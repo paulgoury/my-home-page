@@ -6,8 +6,13 @@ import { Grid } from "@mui/material";
 
 import { MyWrapper, MyTitle, MyTextField, MyButton } from "../components";
 import { getFirestoreInitializer } from "../../../utils/";
+import { useActions } from "../../../tools";
+
+const auth = getAuth(getFirestoreInitializer);
 
 const MyRegister = () => {
+  const { manageUser } = useActions();
+
   const [values, setValues] = useState({
     showPassword: true,
     correctCredentils: 0,
@@ -44,7 +49,6 @@ const MyRegister = () => {
     return credentials.firstPassword === credentials.secondPassword;
   };
 
-  const auth = getAuth(getFirestoreInitializer);
   const registerOnClick = async () => {
     if (passwordsEquals) {
       try {
@@ -54,6 +58,7 @@ const MyRegister = () => {
           credentials.firstPassword
         );
         const user = userCredentials.user;
+        manageUser({ userEmail: user.email });
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;

@@ -43,7 +43,7 @@ const getInitialData = {
     bookmarksBox: [],
     bookmarksDropdown: [],
   },
-  searchEngies: {
+  searchEngines: {
     default: "https://www.google.com/search?q=",
   },
 };

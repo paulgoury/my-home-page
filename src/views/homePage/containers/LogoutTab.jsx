@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 
 import { getAuth } from "firebase/auth";
-import { getDoc, getFirestore, setDoc, doc } from "firebase/firestore";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { useContext } from "react";
 
 import { SettingsContext, useActions } from "../../../tools";
@@ -15,23 +15,20 @@ const auth = getAuth(getFirestoreInitializer);
 
 function LogoutTab() {
   const { state } = useContext(SettingsContext);
-  const { manageUser, changeVisibiliyWidgetsMenu, overwriteState } =
-    useActions();
+  const { manageUser, changeVisibiliyWidgetsMenu } = useActions();
 
   const { themeMode, mainGridData, images, bookmarks, searchEngines } = state;
+  const { layout } = mainGridData;
 
   const manageDocument = async () => {
     const docRef = doc(firestore, `users/${state.user}`);
-    const query = await getDoc(docRef);
-    query.exists()
-      ? overwriteState({ firebaseData: query.data() })
-      : await setDoc(docRef, {
-          themeMode,
-          mainGridData,
-          images,
-          bookmarks,
-          searchEngines,
-        });
+    await setDoc(docRef, {
+      themeMode,
+      layout,
+      images,
+      bookmarks,
+      searchEngines,
+    });
   };
 
   const handleClickLogout = async () => {

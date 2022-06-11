@@ -14,7 +14,20 @@ const reducer = (state, action) => {
         user: action.value,
       };
     case "overwriteState":
-      return action.value;
+      const { themeMode, layout, images, bookmarks, searchEngines } =
+        action.value;
+
+      return {
+        ...state,
+        themeMode: themeMode,
+        mainGridData: {
+          ...state.mainGridData,
+          layout,
+        },
+        images: images,
+        bookmarks: bookmarks,
+        searchEngines: searchEngines,
+      };
     case "setThemeMode":
       return {
         ...state,
@@ -58,7 +71,7 @@ const reducer = (state, action) => {
             ...state.mainGridData.layout,
             {
               code: uuidv4(),
-              data: { isDraggable: undefined, x, y, w, h },
+              data: { x, y, w, h },
               widget: { name: widgetName, props: widgetProps },
             },
           ],

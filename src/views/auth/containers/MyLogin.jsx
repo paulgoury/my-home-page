@@ -6,13 +6,20 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { getDoc, getFirestore, doc } from "firebase/firestore";
 
-import { Button, Grid, Link, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 import { MyWrapper, MyTitle, MyTextField, MyButton } from "../components";
 import { getFirestoreInitializer } from "../../../utils/";
+import { useActions } from "../../../tools";
 
-const MyLogin = ({ handleClick }) => {
+const auth = getAuth(getFirestoreInitializer);
+const firestore = getFirestore(getFirestoreInitializer);
+
+const MyLogin = () => {
+  const { manageUser, overwriteState } = useActions();
+
   const [values, setValues] = useState({
     showPassword: true,
     correctCredentils: 0,
@@ -22,6 +29,14 @@ const MyLogin = ({ handleClick }) => {
     email: "",
     password: "",
   });
+
+  const manageDocument = async ({ userEmail }) => {
+    const docRef = doc(firestore, `users/${userEmail}`);
+    const query = await getDoc(docRef);
+    if (query.exists()) {
+      overwriteState({ firebaseData: query.data() });
+    }
+  };
 
   const emailOnChange = (event) => {
     setCredentials({
@@ -37,8 +52,6 @@ const MyLogin = ({ handleClick }) => {
     });
   };
 
-  const auth = getAuth(getFirestoreInitializer);
-
   const provider = new GoogleAuthProvider();
   const loginWithGoogleOnClick = async () => {
     try {
@@ -47,6 +60,8 @@ const MyLogin = ({ handleClick }) => {
         GoogleAuthProvider.credentialFromResult(userCredentials);
       const token = credential.accessToken;
       const user = userCredentials.user;
+      manageUser({ userEmail: user.email });
+      manageDocument({ userEmail: user.email });
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -67,6 +82,8 @@ const MyLogin = ({ handleClick }) => {
         credentials.password
       );
       const user = userCredentials.user;
+      manageUser({ userEmail: user.email });
+      manageDocument({ userEmail: user.email });
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
