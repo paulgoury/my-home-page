@@ -34,6 +34,7 @@ const MyLogin = () => {
     const docRef = doc(firestore, `users/${userEmail}`);
     const query = await getDoc(docRef);
     if (query.exists()) {
+      console.log(query.data());
       overwriteState({ firebaseData: query.data() });
     }
   };

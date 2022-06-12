@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Settings } from "@mui/icons-material";
+import WidgetsRoundedIcon from "@mui/icons-material/WidgetsRounded";
 import { IconButton } from "@mui/material";
 
 import { SettingsContext, useActions } from "../../../../tools";
@@ -14,7 +14,7 @@ function SettingsButton() {
       disabled={state.mainGridData.isDraggable}
       onClick={changeVisibiliyWidgetsMenu}
     >
-      <Settings sx={{ width: "100%", height: "100%" }} />
+      <WidgetsRoundedIcon sx={{ width: "100%", height: "100%" }} />
     </IconButton>
   );
 }

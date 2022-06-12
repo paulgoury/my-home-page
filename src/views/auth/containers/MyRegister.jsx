@@ -1,17 +1,34 @@
 import { useState } from "react";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 import { Grid } from "@mui/material";
 
 import { MyWrapper, MyTitle, MyTextField, MyButton } from "../components";
-import { getFirestoreInitializer } from "../../../utils/";
+import { getFirestoreInitializer, getInitialData } from "../../../utils/";
 import { useActions } from "../../../tools";
 
 const auth = getAuth(getFirestoreInitializer);
+const firestore = getFirestore(getFirestoreInitializer);
 
 const MyRegister = () => {
   const { manageUser } = useActions();
+
+  const { themeMode, mainGridData, images, bookmarks, searchEngines } =
+    getInitialData;
+  const { layout } = mainGridData;
+
+  const manageDocument = async ({ userEmail }) => {
+    const docRef = doc(firestore, `users/${userEmail}`);
+    await setDoc(docRef, {
+      themeMode,
+      layout,
+      images,
+      bookmarks,
+      searchEngines,
+    });
+  };
 
   const [values, setValues] = useState({
     showPassword: true,
@@ -59,6 +76,7 @@ const MyRegister = () => {
         );
         const user = userCredentials.user;
         manageUser({ userEmail: user.email });
+        manageDocument({ userEmail: user.email });
       } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;

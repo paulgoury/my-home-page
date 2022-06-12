@@ -1,8 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import { useContext } from "react";
 
 import { getAuth } from "firebase/auth";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
-import { useContext } from "react";
+
+import { Button, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 import { SettingsContext, useActions } from "../../../tools";
 import { getFirestoreInitializer } from "../../../utils";
@@ -10,12 +12,12 @@ import { getFirestoreInitializer } from "../../../utils";
 import styles from "./styles/logoutTab.module.css";
 
 const firestore = getFirestore(getFirestoreInitializer);
-
 const auth = getAuth(getFirestoreInitializer);
 
 function LogoutTab() {
   const { state } = useContext(SettingsContext);
   const { manageUser, changeVisibiliyWidgetsMenu } = useActions();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { themeMode, mainGridData, images, bookmarks, searchEngines } = state;
   const { layout } = mainGridData;
@@ -37,27 +39,40 @@ function LogoutTab() {
     }
     changeVisibiliyWidgetsMenu();
     await auth.signOut();
-    manageUser({ userEmail: null });
+    manageUser({ userInfo: null });
+  };
+
+  const handleClickSaveState = async () => {
+    if (state.user) {
+      manageDocument();
+      enqueueSnackbar("Se han guardado los cambios correctamente", {
+        variant: "success",
+      });
+    } else {
+      enqueueSnackbar("No se han podido guardar los cambios", {
+        variant: "error",
+      });
+    }
   };
 
   return (
     <div className={styles.main}>
-      <div>
-        <Typography variant="h4">
-          ¿ Esta seguro que desea cerrar la sesón ?
-        </Typography>
-      </div>
       <div className={styles.buttonsContainer}>
-        <Button variant="contained" color="primary" size="large">
-          No
-        </Button>
         <Button
           variant="contained"
           size="large"
+          color="success"
+          onClick={handleClickSaveState}
+        >
+          Guardar cambios
+        </Button>
+        <Button
+          variant="contained"
           color="error"
+          size="large"
           onClick={handleClickLogout}
         >
-          Si
+          Cerrar Sesión y guardar cambios
         </Button>
       </div>
     </div>

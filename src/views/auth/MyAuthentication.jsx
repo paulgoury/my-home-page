@@ -21,7 +21,7 @@ const MyAuthentication = () => {
       backgroundColor={palette.background.default}
       padding={10}
     >
-      <Grid item xs={6}>
+      <Grid item xs={6} pr={20} textAlign="justify">
         <Grid container direction="column" justifyContent="center" spacing={5}>
           <Grid item typography="h4">
             <Grid item>Bienvenido a </Grid>
@@ -29,7 +29,24 @@ const MyAuthentication = () => {
               My Home Page
             </Grid>
           </Grid>
-          <Grid item>Descripcion...</Grid>
+          <Grid item>
+            <Typography variant="body1">
+              Esta página web ha sido creada para que puedas crear un entorno
+              totalmente personalizable y a tu gusto ! Añade, elimina y mueve
+              los widgets disponibles que hay en el menú junto con otras
+              funcionaliades.
+              <br />
+              Para poder editar tu entorno, deberás de activar el Switch que se
+              encuentra en la parte superior izquierda de la pantalla. Y para
+              añadir nuevos widgets, modificar el fondo de pantalla y cerrar
+              sesión, puedes manegarlo pulsando el icono de configuración
+              superior derecho.
+              <br />
+              Si quieres añadirlo como página principal de chrome, deberás de
+              establecer la URL de esta página en el apartado 'homepage' de la
+              configuración del navegador.
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
 
